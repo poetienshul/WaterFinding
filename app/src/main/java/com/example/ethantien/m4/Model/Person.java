@@ -42,7 +42,7 @@ public abstract class Person {
     }
 
     public String getAddress() {
-        return email;
+        return address;
     }
 
     public String getPassword() {
