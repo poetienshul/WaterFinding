@@ -75,7 +75,9 @@ public class Register extends AppCompatActivity {
                 if (username.equals("") || password.equals("") || fullName.equals("")) {
                     Toast.makeText(Register.this, "Please fill out all blanks.", Toast.LENGTH_LONG).show();
                 } else {
-
+                    /**
+                     * Creates a new Subclass of 'Person' based on what they selected.
+                     */
                     switch (choseUserType.getSelectedItem().toString()) {
                         case "User":
                             vars.getInstance().addPerson(username, new User(fullName, username, password));
@@ -90,6 +92,7 @@ public class Register extends AppCompatActivity {
                             vars.getInstance().addPerson(username, new Admin(fullName, username, password));
                             break;
                     }
+                    Toast.makeText(Register.this, "New user created.", Toast.LENGTH_LONG).show();
                     vars.getInstance().setCurrPerson((Person)vars.getInstance().getMap().get(username));
                     startActivity(new Intent(Register.this, startApplication.class));
 

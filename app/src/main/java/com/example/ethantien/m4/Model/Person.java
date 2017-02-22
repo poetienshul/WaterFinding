@@ -13,11 +13,21 @@ public abstract class Person {
     private String email;
     private String address;
 
+    /**
+     * Constructor for a generic Person
+     * @param nameStr name
+     * @param IDStr id
+     * @param passwordStr password
+     */
     public Person(String nameStr, String IDStr, String passwordStr) {
         name = nameStr;
         ID = IDStr;
         password = passwordStr;
     }
+
+    /**
+     * getters and setters for all the attributes (besides those that should not be changed)
+     */
 
     public void setName(String str) {
         name = str;
