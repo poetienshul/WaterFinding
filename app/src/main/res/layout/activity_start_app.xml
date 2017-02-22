@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.logout">
+    tools:context="com.example.ethantien.m4.Controller.startApplication">
 
     <Button
         android:text="Logout"
@@ -21,4 +21,15 @@
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
         android:id="@+id/logout" />
+
+    <Button
+        android:text="Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/logout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp"
+        android:id="@+id/Profile" />
 </RelativeLayout>

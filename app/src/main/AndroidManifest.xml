@@ -8,15 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".logScreen" />
-        <activity android:name=".logout"></activity>
+        <activity android:name=".Controller.logScreen" />
+        <activity android:name=".Controller.startApplication" />
+        <activity android:name=".Controller.Register" />
+        <activity android:name=".Controller.ViewingProfile"></activity>
     </application>
 
 </manifest>
