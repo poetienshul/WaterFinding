@@ -2,6 +2,7 @@ package com.example.ethantien.m4.Model;
 
 /**
  * Created by ethantien on 2/28/17.
+ * A generic report type.
  */
 
 public class Report {

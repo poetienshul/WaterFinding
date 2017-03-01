@@ -1,8 +1,6 @@
 package com.example.ethantien.m4.Controller;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +15,9 @@ import com.example.ethantien.m4.R;
 
 import java.util.ArrayList;
 
+/**
+ * allows the user to view all the current water reports in the system.
+ */
 public class WaterReports extends AppCompatActivity {
 
     ArrayList<Report> listItems;
@@ -37,7 +38,7 @@ public class WaterReports extends AppCompatActivity {
         //make listview of all water reports
         ArrayList<String> titles = new ArrayList<>();
         for (Report ele : listItems) {
-            titles.add(ele.getReportNumber() + ". <" + ele.getLocationLong() + ", " + ele.getLocationLat() + ">");
+            titles.add(ele.getReportNumber() + ". <" + ele.getLocationLat() + ", " + ele.getLocationLong() + ">");
         }
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 ,titles);

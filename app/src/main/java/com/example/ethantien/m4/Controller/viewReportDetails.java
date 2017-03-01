@@ -11,6 +11,9 @@ import com.example.ethantien.m4.Model.Report;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
 
+/**
+ * gets data for the current report and displays it to the user.
+ */
 public class viewReportDetails extends AppCompatActivity {
 
     @Override
@@ -19,6 +22,8 @@ public class viewReportDetails extends AppCompatActivity {
         setContentView(R.layout.activity_view_report_details);
 
         Report ele = vars.getInstance().getCurrReport();
+
+        //set title
         TextView title = (TextView) findViewById(R.id.textView13);
         title.setText("Water Report #" + vars.getInstance().getCurrReport().getReportNumber() + " Information");
 
@@ -28,6 +33,8 @@ public class viewReportDetails extends AppCompatActivity {
         TextView condition = (TextView) findViewById(R.id.condition);
         TextView name = (TextView) findViewById(R.id.name);
 
+
+        //fetch data from information handlers
         location.setText(("<" + ele.getLocationLat() + ", " + ele.getLocationLong() + ">"));
         dateAndTime.setText(ele.getDate() + ", " + ele.getTime());
         type.setText(ele.getType());
