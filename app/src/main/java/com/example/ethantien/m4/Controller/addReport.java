@@ -102,7 +102,6 @@ public class addReport extends AppCompatActivity {
                             waterType, waterCondition));
 
 
-
                     Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(addReport.this, WaterReports.class));
 
