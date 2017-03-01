@@ -1,6 +1,9 @@
 package com.example.ethantien.m4.Model;
 
 import android.app.Application;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -17,12 +20,37 @@ public class vars {
     private HashMap<String, Person> userPass;
     private Person currPerson;
 
+    private ArrayList<Report> waterReports;
+
     private vars() {
         userPass  = new HashMap<>();
+        waterReports = new ArrayList<>();
     }
 
     public void addPerson(String str, Person p) {
         userPass.put(str, p);
+    }
+
+    public void addReport(Report r) {
+        waterReports.add(r);
+    }
+
+    public ArrayList getReportList() {
+        return waterReports;
+    }
+
+    public Report getReportAtIndex(int index) {
+        return waterReports.get(index);
+    }
+
+    private Report currReport;
+
+    public void setCurrReport(Report r) {
+        currReport = r;
+    }
+
+    public Report getCurrReport() {
+        return currReport;
     }
 
     public HashMap getMap() {

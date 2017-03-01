@@ -22,6 +22,7 @@ public class startApplication extends AppCompatActivity {
 
         Button logout = (Button) findViewById(R.id.logout);
         Button viewProfile = (Button) findViewById(R.id.Profile);
+        Button viewReports = (Button) findViewById(R.id.viewReports);
 
         /**
          * Button handler for the logout button
@@ -45,6 +46,17 @@ public class startApplication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(startApplication.this, ViewingProfile.class));
+            }
+        });
+
+        /**
+         * Button handler for the view User Reports button
+         * @param view the button
+         */
+        viewReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(startApplication.this, WaterReports.class));
             }
         });
     }

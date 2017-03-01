@@ -18,7 +18,10 @@
         <activity android:name=".Controller.logScreen" />
         <activity android:name=".Controller.startApplication" />
         <activity android:name=".Controller.Register" />
-        <activity android:name=".Controller.ViewingProfile"></activity>
+        <activity android:name=".Controller.ViewingProfile" />
+        <activity android:name=".Controller.WaterReports" />
+        <activity android:name=".Controller.addReport" />
+        <activity android:name=".Controller.viewReportDetails"></activity>
     </application>
 
 </manifest>
