@@ -23,6 +23,7 @@ public class startApplication extends AppCompatActivity {
         Button logout = (Button) findViewById(R.id.logout);
         Button viewProfile = (Button) findViewById(R.id.Profile);
         Button viewReports = (Button) findViewById(R.id.viewReports);
+        Button viewMap = (Button) findViewById(R.id.viewMap);
 
         /**
          * Button handler for the logout button
@@ -33,6 +34,7 @@ public class startApplication extends AppCompatActivity {
             public void onClick(View view) {
                 vars.getInstance().setCurrPerson(null);
                 startActivity(new Intent(startApplication.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -46,6 +48,7 @@ public class startApplication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(startApplication.this, ViewingProfile.class));
+                finish();
             }
         });
 
@@ -57,6 +60,18 @@ public class startApplication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(startApplication.this, WaterReports.class));
+                finish();
+            }
+        });
+
+        /**
+         * Button handler for the View maps button
+         * @param view the button
+         */
+        viewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(startApplication.this, showMap.class));
             }
         });
     }

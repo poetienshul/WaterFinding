@@ -41,4 +41,13 @@
         android:id="@+id/viewReports"
         android:layout_below="@+id/logout"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="View Map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:id="@+id/viewMap"
+        android:layout_below="@+id/viewReports"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

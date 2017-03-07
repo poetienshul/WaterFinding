@@ -64,6 +64,7 @@ public class logScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(logScreen.this, MainActivity.class));
+                finish();
             }
         });
     }

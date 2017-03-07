@@ -32,7 +32,7 @@ public class WaterReports extends AppCompatActivity {
         setContentView(R.layout.activity_water_reports);
 
         Button addReports = (Button) findViewById(R.id.addReport);
-        Button back = (Button) findViewById(R.id.back);
+        Button back = (Button) findViewById(R.id.backList);
         listItems = vars.getInstance().getReportList();
 
         //make listview of all water reports
@@ -50,6 +50,7 @@ public class WaterReports extends AppCompatActivity {
 
                 vars.getInstance().setCurrReport(vars.getInstance().getReportAtIndex(position));
                 startActivity(new Intent(WaterReports.this, viewReportDetails.class));
+                finish();
             }
         });
 
@@ -61,6 +62,7 @@ public class WaterReports extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(WaterReports.this, addReport.class));
+                finish();
             }
         });
 
@@ -72,6 +74,7 @@ public class WaterReports extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(WaterReports.this, startApplication.class));
+                finish();
             }
         });
 

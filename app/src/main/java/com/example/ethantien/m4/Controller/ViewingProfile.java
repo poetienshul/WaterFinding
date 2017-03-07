@@ -52,6 +52,7 @@ public class ViewingProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewingProfile.this, startApplication.class));
+                finish();
             }
         });
 
@@ -74,6 +75,7 @@ public class ViewingProfile extends AppCompatActivity {
                     cur.setAddress(address);
                     Toast.makeText(ViewingProfile.this, "Information saved successfully.", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(ViewingProfile.this, startApplication.class));
+                    finish();
                 }
 
             }

@@ -41,18 +41,32 @@ public class viewReportDetails extends AppCompatActivity {
         condition.setText(ele.getCondition());
         name.setText(ele.getReporterName());
 
-        Button back = (Button) findViewById(R.id.back);
+        Button backList = (Button) findViewById(R.id.backList);
+        Button backMap = (Button) findViewById(R.id.backMap);
 
         /**
-         * Button handler for the back button
+         * Button handler for the back List button
          * @param view the button
          */
-        back.setOnClickListener(new View.OnClickListener() {
+        backList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(viewReportDetails.this, WaterReports.class));
+                finish();
             }
         });
+
+        /**
+         * Button handler for the back Map button
+         * @param view the button
+         */
+        backMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(viewReportDetails.this, showMap.class));
+            }
+        });
+
 
 
     }

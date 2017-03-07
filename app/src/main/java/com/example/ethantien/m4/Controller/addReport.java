@@ -86,11 +86,14 @@ public class addReport extends AppCompatActivity {
             public void onClick(View view) {
                 if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")) {
                     Toast.makeText(addReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
+                }
+                Double lat = Double.parseDouble(latitude.getText().toString());
+                Double longi = Double.parseDouble(longitude.getText().toString());
+                if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
+                    Toast.makeText(addReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
                 } else {
                     String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
                     String time = new SimpleDateFormat("hh:mm aaa").format(new Date());
-                    Double lat = Double.parseDouble(latitude.getText().toString());
-                    Double longi = Double.parseDouble(longitude.getText().toString());
                     String waterType = choseType.getSelectedItem().toString();
                     String waterCondition = choseCondition.getSelectedItem().toString();
                     String name = vars.getInstance().getCurrPerson().getName();
@@ -104,6 +107,7 @@ public class addReport extends AppCompatActivity {
 
                     Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(addReport.this, WaterReports.class));
+                    finish();
 
                 }
             }

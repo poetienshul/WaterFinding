@@ -95,6 +95,7 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "New user created.", Toast.LENGTH_LONG).show();
                     vars.getInstance().setCurrPerson((Person)vars.getInstance().getMap().get(username));
                     startActivity(new Intent(Register.this, startApplication.class));
+                    finish();
 
                 }
 
@@ -110,6 +111,7 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Register.this, MainActivity.class));
+                finish();
             }
         });
 
