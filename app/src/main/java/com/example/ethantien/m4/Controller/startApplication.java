@@ -24,6 +24,7 @@ public class startApplication extends AppCompatActivity {
         Button viewProfile = (Button) findViewById(R.id.Profile);
         Button viewReports = (Button) findViewById(R.id.viewReports);
         Button viewMap = (Button) findViewById(R.id.viewMap);
+        Button viewPurityReports = (Button) findViewById(R.id.viewPurityReports);
 
         /**
          * Button handler for the logout button
@@ -74,5 +75,17 @@ public class startApplication extends AppCompatActivity {
                 startActivity(new Intent(startApplication.this, showMap.class));
             }
         });
+
+        /**
+         * Button handler for the View purity reports button
+         * @param view the button
+         */
+        viewPurityReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(startApplication.this, PurityReports.class));
+            }
+        });
+
     }
 }
