@@ -45,6 +45,7 @@ public class logScreen extends AppCompatActivity {
                     if (passw.equals(vars.getInstance().getCurrPerson().getPassword())) {
                         startActivity(new Intent(logScreen.this, startApplication.class));
                     } else {
+                        vars.getInstance().setCurrPerson(null);
                         Toast.makeText(logScreen.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                     }
                 } else {

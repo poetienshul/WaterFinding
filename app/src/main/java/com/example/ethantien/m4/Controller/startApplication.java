@@ -77,7 +77,7 @@ public class startApplication extends AppCompatActivity {
         });
 
         /**
-         * Button handler for the View purity reports button
+         * Button handler for the View purity waterReports button
          * @param view the button
          */
         viewPurityReports.setOnClickListener(new View.OnClickListener() {

@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.Report;
-import com.example.ethantien.m4.Model.User;
-import com.example.ethantien.m4.Model.Worker;
+import com.example.ethantien.m4.Model.WaterReport;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
 
@@ -24,11 +21,11 @@ public class viewReportDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_report_details);
 
-        Report ele = vars.getInstance().getCurrReport();
+        WaterReport ele = vars.getInstance().getCurrWaterReport();
 
         //set title
         TextView title = (TextView) findViewById(R.id.textView13);
-        title.setText("Water Report #" + vars.getInstance().getCurrReport().getReportNumber() + " Information");
+        title.setText("Water WaterReport #" + vars.getInstance().getCurrWaterReport().getReportNumber() + " Information");
 
         TextView location = (TextView) findViewById(R.id.location);
         TextView dateAndTime = (TextView) findViewById(R.id.dateAndTime);

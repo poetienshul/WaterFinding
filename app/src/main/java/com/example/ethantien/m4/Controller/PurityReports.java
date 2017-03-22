@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.Report;
 import com.example.ethantien.m4.Model.WaterPurityReport;
 import com.example.ethantien.m4.Model.Worker;
 import com.example.ethantien.m4.Model.vars;
@@ -35,7 +34,7 @@ public class PurityReports extends AppCompatActivity {
         Button back = (Button) findViewById(R.id.backList);
         listItems = vars.getInstance().getPurityList();
 
-        //make listview of all purity reports
+        //make listview of all water purity Reports
         ArrayList<String> titles = new ArrayList<>();
         for (WaterPurityReport ele : listItems) {
             titles.add(ele.getReportNumber() + ". <" + ele.getLocationLat() + ", " + ele.getLocationLong() + ">");

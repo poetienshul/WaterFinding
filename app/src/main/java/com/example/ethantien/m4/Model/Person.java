@@ -13,6 +13,15 @@ public abstract class Person {
     private String email;
     private String address;
 
+    public Person() {
+        //dummy default constructors
+        name = "..";
+        ID = "..";
+        password = "..";
+        email = "..";
+        address = "..";
+    }
+
     /**
      * Constructor for a generic Person
      * @param nameStr name

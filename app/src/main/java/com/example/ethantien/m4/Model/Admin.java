@@ -9,6 +9,10 @@ package com.example.ethantien.m4.Model;
  */
 public class Admin extends Person {
 
+    public Admin() {
+
+    }
+
     /**
      * Constructer chainer to create a new subclass of the person Class
      * @param nameStr name

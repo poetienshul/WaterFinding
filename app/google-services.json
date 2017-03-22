@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "701555864876",
+    "firebase_url": "https://waterfinding.firebaseio.com",
+    "project_id": "waterfinding",
+    "storage_bucket": "waterfinding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701555864876:android:5e072bbb8e75df97",
+        "android_client_info": {
+          "package_name": "com.example.ethantien.m4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701555864876-hgq3rv3d0tvitq8ocn96vg75gskn7fqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0MznS8cbzfHeX0g7UujZ7UgH8pC5XIho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

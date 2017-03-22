@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.ethantien.m4.Model.Report;
+import com.example.ethantien.m4.Model.WaterReport;
 import com.example.ethantien.m4.Model.WaterPurityReport;
 import com.example.ethantien.m4.Model.vars;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class showMap extends AppCompatActivity implements OnMapReadyCallback, OnMarkerClickListener {
 
-    ArrayList<Report> reports;
+    ArrayList<WaterReport> waterReports;
     ArrayList<WaterPurityReport> purityReports;
     ArrayList<MarkerOptions> markers;
 
@@ -34,12 +34,12 @@ public class showMap extends AppCompatActivity implements OnMapReadyCallback, On
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        reports = vars.getInstance().getReportList();
+        waterReports = vars.getInstance().getReportList();
         purityReports = vars.getInstance().getPurityList();
         markers = new ArrayList<>();
-        for (Report ele : reports) {
+        for (WaterReport ele : waterReports) {
             markers.add(new MarkerOptions()
-                    .position(new LatLng(ele.getLocationLat(), ele.getLocationLong())).title("Report" + Integer.toString(ele.getReportNumber())));
+                    .position(new LatLng(ele.getLocationLat(), ele.getLocationLong())).title("WaterReport" + Integer.toString(ele.getReportNumber())));
         }
         for (WaterPurityReport reps : purityReports) {
             markers.add(new MarkerOptions()
@@ -58,25 +58,25 @@ public class showMap extends AppCompatActivity implements OnMapReadyCallback, On
         for (MarkerOptions element : markers) {
             map.addMarker(element);
         }
-        if (vars.getInstance().getCurrReport() != null) {
+        if (vars.getInstance().getCurrWaterReport() != null) {
 
-            LatLng latlng = new LatLng(vars.getInstance().getCurrReport().getLocationLat(),
-                    vars.getInstance().getCurrReport().getLocationLong());
+            LatLng latlng = new LatLng(vars.getInstance().getCurrWaterReport().getLocationLat(),
+                    vars.getInstance().getCurrWaterReport().getLocationLong());
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 11));
         }
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Report cur = null;
+        WaterReport cur = null;
         WaterPurityReport curr = null;
-        if (marker.getTitle().contains("Report")) {
+        if (marker.getTitle().contains("WaterReport")) {
             for (Object r : vars.getInstance().getReportList()) {
-                if (marker.getTitle().equals("Report" + Integer.toString(((Report)r).getReportNumber()))) {
-                    cur = (Report) r;
+                if (marker.getTitle().equals("WaterReport" + Integer.toString(((WaterReport)r).getReportNumber()))) {
+                    cur = (WaterReport) r;
                 }
             }
-            vars.getInstance().setCurrReport(cur);
+            vars.getInstance().setCurrWaterReport(cur);
             startActivity(new Intent(showMap.this, viewReportDetails.class));
         } else {
             for (Object r : vars.getInstance().getPurityList()) {

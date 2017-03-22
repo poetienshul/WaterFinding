@@ -13,18 +13,21 @@ import java.util.HashMap;
 
 public class vars {
 
+
+
+
     private static final vars _instance = new vars();
     public static vars getInstance() { return _instance; }
 
     private HashMap<String, Person> userPass;
     private Person currPerson;
 
-    private ArrayList<Report> waterReports;
+    private ArrayList<WaterReport> waterWaterReports;
     private ArrayList<WaterPurityReport> waterPurityReports;
 
     private vars() {
         userPass  = new HashMap<>();
-        waterReports = new ArrayList<>(20);
+        waterWaterReports = new ArrayList<>(20);
         waterPurityReports = new ArrayList<>(20);
     }
 
@@ -32,8 +35,8 @@ public class vars {
         userPass.put(str, p);
     }
 
-    public void addReport(Report r) {
-        waterReports.add(r);
+    public void addReport(WaterReport r) {
+        waterWaterReports.add(r);
     }
 
     public void addPurityReport(WaterPurityReport r) {
@@ -41,30 +44,30 @@ public class vars {
     }
 
     public ArrayList getReportList() {
-        return waterReports;
+        return waterWaterReports;
     }
 
     public ArrayList getPurityList() {
         return waterPurityReports;
     }
 
-    public Report getReportAtIndex(int index) {
-        return waterReports.get(index);
+    public WaterReport getReportAtIndex(int index) {
+        return waterWaterReports.get(index);
     }
 
     public WaterPurityReport getPurityAtIndex(int index) {
         return waterPurityReports.get(index);
     }
 
-    private Report currReport;
+    private WaterReport currWaterReport;
     private WaterPurityReport currPurityReport;
 
-    public void setCurrReport(Report r) {
-        currReport = r;
+    public void setCurrWaterReport(WaterReport r) {
+        currWaterReport = r;
     }
 
-    public Report getCurrReport() {
-        return currReport;
+    public WaterReport getCurrWaterReport() {
+        return currWaterReport;
     }
 
     public WaterPurityReport getCurrPurityReport() {

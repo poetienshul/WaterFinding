@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ethantien.m4.Model.Report;
 import com.example.ethantien.m4.Model.WaterPurityReport;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
@@ -23,7 +22,7 @@ public class viewPurityDetails extends AppCompatActivity {
 
         //set title
         TextView title = (TextView) findViewById(R.id.textView13);
-        title.setText("Purity Report #" + vars.getInstance().getCurrPurityReport().getReportNumber() + " Information");
+        title.setText("Purity WaterReport #" + vars.getInstance().getCurrPurityReport().getReportNumber() + " Information");
 
         TextView location = (TextView) findViewById(R.id.location);
         TextView dateAndTime = (TextView) findViewById(R.id.dateAndTime);

@@ -9,18 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.ethantien.m4.Model.Report;
+import com.example.ethantien.m4.Model.WaterReport;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
 
 import java.util.ArrayList;
 
 /**
- * allows the user to view all the current water reports in the system.
+ * allows the user to view all the current water waterReports in the system.
  */
 public class WaterReports extends AppCompatActivity {
 
-    ArrayList<Report> listItems;
+    ArrayList<WaterReport> listItems;
 
     ArrayAdapter<String> adapter;
     ListView list;
@@ -35,20 +35,20 @@ public class WaterReports extends AppCompatActivity {
         Button back = (Button) findViewById(R.id.backList);
         listItems = vars.getInstance().getReportList();
 
-        //make listview of all water reports
+        //make listview of all water waterReports
         ArrayList<String> titles = new ArrayList<>();
-        for (Report ele : listItems) {
+        for (WaterReport ele : listItems) {
             titles.add(ele.getReportNumber() + ". <" + ele.getLocationLat() + ", " + ele.getLocationLong() + ">");
         }
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 ,titles);
-        list=(ListView) findViewById(R.id.lisp);
+        list = (ListView) findViewById(R.id.lisp);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
 
-                vars.getInstance().setCurrReport(vars.getInstance().getReportAtIndex(position));
+                vars.getInstance().setCurrWaterReport(vars.getInstance().getReportAtIndex(position));
                 startActivity(new Intent(WaterReports.this, viewReportDetails.class));
                 finish();
             }

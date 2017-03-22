@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.Report;
 import com.example.ethantien.m4.Model.WaterPurityReport;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;

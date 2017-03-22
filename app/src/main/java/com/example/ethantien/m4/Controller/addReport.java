@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.Report;
+import com.example.ethantien.m4.Model.WaterReport;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
 
@@ -99,9 +99,9 @@ public class addReport extends AppCompatActivity {
                     String name = vars.getInstance().getCurrPerson().getName();
                     int num = vars.getInstance().getReportList().size() + 1;
 
-                    //public Report (String date, String time, int reportNumber, String reporterName,
+                    //public WaterReport (String date, String time, int reportNumber, String reporterName,
                     //Double locationLat, Double locationLong, String type, String condition) {
-                    vars.getInstance().addReport(new Report(date, time, num, name, lat, longi,
+                    vars.getInstance().addReport(new WaterReport(date, time, num, name, lat, longi,
                             waterType, waterCondition));
 
 
