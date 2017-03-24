@@ -33,7 +33,7 @@ public class ViewingProfile extends AppCompatActivity {
          * Label all the things on the current page layout
          */
         nameTEXT = (EditText) findViewById(R.id.fullName);
-        emailTEXT = (EditText) findViewById(R.id.email);
+        emailTEXT = (EditText) findViewById(R.id.email_edit);
         addressTEXT = (EditText) findViewById(R.id.address);
 
 
