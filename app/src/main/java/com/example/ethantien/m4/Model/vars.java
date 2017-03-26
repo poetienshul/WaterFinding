@@ -35,29 +35,29 @@ public class vars {
         userPass.put(str, p);
     }
 
-    public void addReport(WaterReport r) {
-        waterWaterReports.add(r);
-    }
-
-    public void addPurityReport(WaterPurityReport r) {
-        waterPurityReports.add(r);
-    }
-
-    public ArrayList getReportList() {
-        return waterWaterReports;
-    }
-
-    public ArrayList getPurityList() {
-        return waterPurityReports;
-    }
-
-    public WaterReport getReportAtIndex(int index) {
-        return waterWaterReports.get(index);
-    }
-
-    public WaterPurityReport getPurityAtIndex(int index) {
-        return waterPurityReports.get(index);
-    }
+//    public void addReport(WaterReport r) {
+//        waterWaterReports.add(r);
+//    }
+//
+//    public void addPurityReport(WaterPurityReport r) {
+//        waterPurityReports.add(r);
+//    }
+//
+//    public ArrayList getReportList() {
+//        return waterWaterReports;
+//    }
+//
+//    public ArrayList getPurityList() {
+//        return waterPurityReports;
+//    }
+//
+//    public WaterReport getReportAtIndex(int index) {
+//        return waterWaterReports.get(index);
+//    }
+//
+//    public WaterPurityReport getPurityAtIndex(int index) {
+//        return waterPurityReports.get(index);
+//    }
 
     private WaterReport currWaterReport;
     private WaterPurityReport currPurityReport;

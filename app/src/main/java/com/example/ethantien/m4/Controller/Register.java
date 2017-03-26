@@ -1,6 +1,7 @@
 package com.example.ethantien.m4.Controller;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +19,15 @@ import com.example.ethantien.m4.Model.User;
 import com.example.ethantien.m4.Model.Worker;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Allows the User to create a new account
@@ -34,6 +42,9 @@ public class Register extends AppCompatActivity {
     private Button Register;
     private Button Cancel;
     private Spinner choseUserType;
+
+    private String temp = "";
+    private Person tempPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +83,7 @@ public class Register extends AppCompatActivity {
                 String username = userID.getText().toString();
                 String password = pass.getText().toString();
                 String fullName = name.getText().toString();
+
                 if (username.equals("") || password.equals("") || fullName.equals("")) {
                     Toast.makeText(Register.this, "Please fill out all blanks.", Toast.LENGTH_LONG).show();
                 } else {
@@ -80,22 +92,54 @@ public class Register extends AppCompatActivity {
                      */
                     switch (choseUserType.getSelectedItem().toString()) {
                         case "User":
-                            vars.getInstance().addPerson(username, new User(fullName, username, password));
+                            //vars.getInstance().addPerson(username, new User(fullName, username, password));
+                            tempPerson = new User(fullName, username, password);
+                            temp = "Users";
                             break;
                         case "Worker":
-                            vars.getInstance().addPerson(username, new Worker(fullName, username, password));
+                            //vars.getInstance().addPerson(username, new Worker(fullName, username, password));
+                            tempPerson = new Worker(fullName, username, password);
+                            temp = "Workers";
                             break;
                         case "Manager":
-                            vars.getInstance().addPerson(username, new Manager(fullName, username, password));
+                            //vars.getInstance().addPerson(username, new Manager(fullName, username, password));
+                            tempPerson = new Manager(fullName, username, password);
+                            temp = "Mangers";
                             break;
                         case "Admin":
-                            vars.getInstance().addPerson(username, new Admin(fullName, username, password));
+                            //vars.getInstance().addPerson(username, new Admin(fullName, username, password));
+                            tempPerson = new Admin(fullName, username, password);
+                            temp = "Admins";
                             break;
                     }
-                    Toast.makeText(Register.this, "New user created.", Toast.LENGTH_LONG).show();
-                    vars.getInstance().setCurrPerson((Person)vars.getInstance().getMap().get(username));
-                    startActivity(new Intent(Register.this, startApplication.class));
-                    finish();
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(temp);
+                    //System.out.println(tempPerson instanceof Admin);
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.child(tempPerson.getID()).getValue() != null) {
+                                Toast.makeText(Register.this, "That user already exists!", Toast.LENGTH_LONG).show();
+                            } else {
+                                Map<String, Object> childUpdates = new HashMap<>();
+
+                                childUpdates.put("" + tempPerson.getID(), tempPerson);
+                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(temp);
+                                mDatabase.updateChildren(childUpdates);
+
+                                Toast.makeText(Register.this, "New user created.", Toast.LENGTH_LONG).show();
+                                vars.getInstance().setCurrPerson(tempPerson);
+                                System.out.println(tempPerson instanceof Admin);
+                                startActivity(new Intent(Register.this, startApplication.class));
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Toast.makeText(Register.this, "Database error", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
 
                 }
 

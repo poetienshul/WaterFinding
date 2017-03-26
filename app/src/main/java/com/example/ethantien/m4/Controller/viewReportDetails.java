@@ -25,7 +25,7 @@ public class viewReportDetails extends AppCompatActivity {
 
         //set title
         TextView title = (TextView) findViewById(R.id.textView13);
-        title.setText("Water WaterReport #" + vars.getInstance().getCurrWaterReport().getReportNumber() + " Information");
+        title.setText("Water Report #" + vars.getInstance().getCurrWaterReport().getReportNumber() + " Information");
 
         TextView location = (TextView) findViewById(R.id.location);
         TextView dateAndTime = (TextView) findViewById(R.id.dateAndTime);

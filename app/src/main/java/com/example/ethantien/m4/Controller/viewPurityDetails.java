@@ -22,7 +22,7 @@ public class viewPurityDetails extends AppCompatActivity {
 
         //set title
         TextView title = (TextView) findViewById(R.id.textView13);
-        title.setText("Purity WaterReport #" + vars.getInstance().getCurrPurityReport().getReportNumber() + " Information");
+        title.setText("Purity Report #" + vars.getInstance().getCurrPurityReport().getReportNumber() + " Information");
 
         TextView location = (TextView) findViewById(R.id.location);
         TextView dateAndTime = (TextView) findViewById(R.id.dateAndTime);

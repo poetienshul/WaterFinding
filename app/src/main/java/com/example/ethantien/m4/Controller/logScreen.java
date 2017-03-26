@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.example.ethantien.m4.Model.Person;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -39,7 +41,7 @@ public class logScreen extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = username.getText().toString();
                 String passw = password.getText().toString();
-
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                 if (vars.getInstance().getMap().containsKey(userName)) {
                     vars.getInstance().setCurrPerson((Person)vars.getInstance().getMap().get(userName));
                     if (passw.equals(vars.getInstance().getCurrPerson().getPassword())) {
