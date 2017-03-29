@@ -31,7 +31,9 @@
         <activity android:name=".Controller.showMap" />
         <activity android:name=".Controller.viewPurityDetails" />
         <activity android:name=".Controller.addPurityReport" />
-        <activity android:name=".Controller.PurityReports"></activity>
+        <activity android:name=".Controller.PurityReports" />
+        <activity android:name=".Controller.ViewGraph" />
+        <activity android:name=".Controller.ViewGraphSettings"></activity>
     </application>
 
 </manifest>

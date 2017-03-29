@@ -57,6 +57,11 @@ public class addPurityReport extends AppCompatActivity {
         });
     }
 
+    /**
+     * this method pulls the data that come from the textboxes that are on the screen, and then
+     * pushes the new purity report to the Firebase Database if it is valid.
+     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
+     */
     private void addPurityReport() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterPurityReports");
         mDatabase.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,32 +100,33 @@ public class addPurityReport extends AppCompatActivity {
                         if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")
                                 || virus.getText().toString().equals("") || contaminant.getText().toString().equals("")) {
                             Toast.makeText(addPurityReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
-                        }
-                        Double lat = Double.parseDouble(latitude.getText().toString());
-                        Double longi = Double.parseDouble(longitude.getText().toString());
-                        Double virusppm = Double.parseDouble(virus.getText().toString());
-                        Double contaminantppm = Double.parseDouble(contaminant.getText().toString());
-                        if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
-                            Toast.makeText(addPurityReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
                         } else {
-                            String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
-                            String time = new SimpleDateFormat("hh:mm aaa").format(new Date());
-                            String waterCondition = choseCondition.getSelectedItem().toString();
-                            String name = vars.getInstance().getCurrPerson().getName();
+                            Double lat = Double.parseDouble(latitude.getText().toString());
+                            Double longi = Double.parseDouble(longitude.getText().toString());
+                            Double virusppm = Double.parseDouble(virus.getText().toString());
+                            Double contaminantppm = Double.parseDouble(contaminant.getText().toString());
+                            if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
+                                Toast.makeText(addPurityReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
+                            } else {
+                                String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+                                String time = new SimpleDateFormat("hh:mm aaa").format(new Date());
+                                String waterCondition = choseCondition.getSelectedItem().toString();
+                                String name = vars.getInstance().getCurrPerson().getName();
 
-                            WaterPurityReport meow = new WaterPurityReport(date, time, lastCount, name, lat, longi,
-                                    waterCondition, virusppm, contaminantppm);
-                            //String key = mDatabase.child("WaterReports").push().getKey();
-                            Map<String, Object> childUpdates = new HashMap<>();
+                                WaterPurityReport meow = new WaterPurityReport(date, time, lastCount, name, lat, longi,
+                                        waterCondition, virusppm, contaminantppm);
+                                //String key = mDatabase.child("WaterReports").push().getKey();
+                                Map<String, Object> childUpdates = new HashMap<>();
 
-                            childUpdates.put("" + meow.getReportNumber(), meow);
-                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterPurityReports");
-                            mDatabase.updateChildren(childUpdates);
-                            Toast.makeText(addPurityReport.this, "New Purity Report created.", Toast.LENGTH_LONG).show();
+                                childUpdates.put("" + meow.getReportNumber(), meow);
+                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterPurityReports");
+                                mDatabase.updateChildren(childUpdates);
+                                Toast.makeText(addPurityReport.this, "New Purity Report created.", Toast.LENGTH_LONG).show();
 
-                            startActivity(new Intent(addPurityReport.this, PurityReports.class));
+                                startActivity(new Intent(addPurityReport.this, PurityReports.class));
 
-                            finish();
+                                finish();
+                            }
                         }
                     }
                 });

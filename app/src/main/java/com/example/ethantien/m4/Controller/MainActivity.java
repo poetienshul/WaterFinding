@@ -12,10 +12,13 @@ import com.example.ethantien.m4.Model.User;
 import com.example.ethantien.m4.Model.WaterPurityReport;
 import com.example.ethantien.m4.Model.WaterReport;
 import com.example.ethantien.m4.Model.Worker;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +35,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Admins");
+//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+//        //System.out.println(mDatabase.child("Admins").child("ethan").child("password").toString());
+//        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                System.out.println(dataSnapshot.child("Admins").child("ethan").child("password").getValue().toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                System.out.println("Meow");
+//            }
+//        });
 //
 //        //public Person(String nameStr, String IDStr, String passwordStr) {
 //        //WaterPurityReport meow = new WaterPurityReport("3/23/2017", "8:13PM", 0, "Etan", 33.0, -88.4, "Bottled", .3, 4.0);

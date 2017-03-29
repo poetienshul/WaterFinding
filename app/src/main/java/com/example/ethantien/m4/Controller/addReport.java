@@ -44,8 +44,28 @@ public class addReport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
         cancel = (Button) findViewById(R.id.cancel);
+        addReport();
+        /**
+         * Button handler for the cancel button
+         *
+         * @param view the button
+         */
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(addReport.this, WaterReports.class));
+            }
+        });
 
 
+    }
+
+    /**
+     * this method pulls the data that come from the textboxes that are on the screen, and then
+     * pushes the new water report to the Firebase Database if it is valid.
+     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
+     */
+    private void addReport() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
         mDatabase.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -96,30 +116,31 @@ public class addReport extends AppCompatActivity {
                     public void onClick(View view) {
                         if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")) {
                             Toast.makeText(addReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
-                        }
-                        Double lat = Double.parseDouble(latitude.getText().toString());
-                        Double longi = Double.parseDouble(longitude.getText().toString());
-                        if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
-                            Toast.makeText(addReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
                         } else {
-                            String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
-                            String time = new SimpleDateFormat("hh:mm aaa").format(new Date());
-                            String waterType = choseType.getSelectedItem().toString();
-                            String waterCondition = choseCondition.getSelectedItem().toString();
-                            String name = vars.getInstance().getCurrPerson().getName();
-                            WaterReport meow = new WaterReport(date, time, lastCount, name, lat, longi, waterType, waterCondition);
-                            //String key = mDatabase.child("WaterReports").push().getKey();
-                            Map<String, Object> childUpdates = new HashMap<>();
+                            Double lat = Double.parseDouble(latitude.getText().toString());
+                            Double longi = Double.parseDouble(longitude.getText().toString());
+                            if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
+                                Toast.makeText(addReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
+                            } else {
+                                String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+                                String time = new SimpleDateFormat("hh:mm aaa").format(new Date());
+                                String waterType = choseType.getSelectedItem().toString();
+                                String waterCondition = choseCondition.getSelectedItem().toString();
+                                String name = vars.getInstance().getCurrPerson().getName();
+                                WaterReport meow = new WaterReport(date, time, lastCount, name, lat, longi, waterType, waterCondition);
+                                //String key = mDatabase.child("WaterReports").push().getKey();
+                                Map<String, Object> childUpdates = new HashMap<>();
 
-                            childUpdates.put("" + meow.getReportNumber(), meow);
-                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
-                            mDatabase.updateChildren(childUpdates);
-                            Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
+                                childUpdates.put("" + meow.getReportNumber(), meow);
+                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
+                                mDatabase.updateChildren(childUpdates);
+                                Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
 
-                            startActivity(new Intent(addReport.this, WaterReports.class));
+                                startActivity(new Intent(addReport.this, WaterReports.class));
 
-                            finish();
-                            System.out.println(lastCount);
+                                finish();
+                                System.out.println(lastCount);
+                            }
                         }
                     }
                 });
@@ -133,16 +154,6 @@ public class addReport extends AppCompatActivity {
 
 
         });
-        /**
-         * Button handler for the cancel button
-         *
-         * @param view the button
-         */
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(addReport.this, WaterReports.class));
-            }
-        });
+
     }
 }

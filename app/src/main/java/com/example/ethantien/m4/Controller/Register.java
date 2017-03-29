@@ -50,7 +50,28 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Cancel = (Button) findViewById(R.id.cancelButton);
+        addUser();
 
+
+
+
+        /**
+         * Button handler for the cancel button
+         * @param view the button
+         */
+        Cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Register.this, MainActivity.class));
+                finish();
+            }
+        });
+
+
+    }
+
+    private void addUser() {
         /**
          * Labels all of the elements on the screen
          */
@@ -58,9 +79,8 @@ public class Register extends AppCompatActivity {
         userID = (EditText) findViewById(R.id.userID);
         pass = (EditText) findViewById(R.id.passField);
         Register = (Button) findViewById(R.id.regButton);
-        Cancel = (Button) findViewById(R.id.cancelButton);
-        choseUserType = (Spinner) findViewById(R.id.accType);
 
+        choseUserType = (Spinner) findViewById(R.id.accType);
         /**
          * add types to the spinner
          */
@@ -112,23 +132,30 @@ public class Register extends AppCompatActivity {
                             temp = "Admins";
                             break;
                     }
-                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(temp);
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                     //System.out.println(tempPerson instanceof Admin);
                     mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(tempPerson.getID()).getValue() != null) {
+                            if (dataSnapshot.child("Users").child(tempPerson.getID()).getValue() != null) {
+                                //make this loop through ALL users
+                                Toast.makeText(Register.this, "That user already exists!", Toast.LENGTH_LONG).show();
+                            } else if (dataSnapshot.child("Workers").child(tempPerson.getID()).getValue() != null){
+                                Toast.makeText(Register.this, "That user already exists!", Toast.LENGTH_LONG).show();
+                            } else if (dataSnapshot.child("Managers").child(tempPerson.getID()).getValue() != null){
+                                Toast.makeText(Register.this, "That user already exists!", Toast.LENGTH_LONG).show();
+                            } else if (dataSnapshot.child("Admins").child(tempPerson.getID()).getValue() != null){
                                 Toast.makeText(Register.this, "That user already exists!", Toast.LENGTH_LONG).show();
                             } else {
                                 Map<String, Object> childUpdates = new HashMap<>();
 
-                                childUpdates.put("" + tempPerson.getID(), tempPerson);
+                                childUpdates.put(temp + "/" + tempPerson.getID(), tempPerson);
                                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(temp);
                                 mDatabase.updateChildren(childUpdates);
 
                                 Toast.makeText(Register.this, "New user created.", Toast.LENGTH_LONG).show();
                                 vars.getInstance().setCurrPerson(tempPerson);
-                                System.out.println(tempPerson instanceof Admin);
+                                //System.out.println(tempPerson instanceof Admin);
                                 startActivity(new Intent(Register.this, startApplication.class));
                                 finish();
                             }
@@ -146,19 +173,5 @@ public class Register extends AppCompatActivity {
 
             }
         });
-
-        /**
-         * Button handler for the cancel button
-         * @param view the button
-         */
-        Cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Register.this, MainActivity.class));
-                finish();
-            }
-        });
-
-
     }
 }

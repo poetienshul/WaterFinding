@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.ethantien.m4.Model.Manager;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
 
@@ -25,6 +27,7 @@ public class startApplication extends AppCompatActivity {
         Button viewReports = (Button) findViewById(R.id.viewReports);
         Button viewMap = (Button) findViewById(R.id.viewMap);
         Button viewPurityReports = (Button) findViewById(R.id.viewPurityReports);
+        Button viewGraph = (Button) findViewById(R.id.viewGraph);
 
         /**
          * Button handler for the logout button
@@ -77,13 +80,29 @@ public class startApplication extends AppCompatActivity {
         });
 
         /**
-         * Button handler for the View purity waterReports button
+         * Button handler for the View purity Reports button
          * @param view the button
          */
         viewPurityReports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(startApplication.this, PurityReports.class));
+            }
+        });
+
+        /**
+         * Button handler for the View graph button
+         * @param view the button
+         */
+        viewGraph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (vars.getInstance().getCurrPerson() instanceof Manager) {
+                    startActivity(new Intent(startApplication.this, ViewGraphSettings.class));
+                } else {
+                    Toast.makeText(startApplication.this, "Only Managers may view Graphs", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 

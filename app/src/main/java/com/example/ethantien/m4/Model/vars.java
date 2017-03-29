@@ -19,55 +19,49 @@ public class vars {
     private static final vars _instance = new vars();
     public static vars getInstance() { return _instance; }
 
-    private HashMap<String, Person> userPass;
-    private Person currPerson;
-
-    private ArrayList<WaterReport> waterWaterReports;
-    private ArrayList<WaterPurityReport> waterPurityReports;
-
     private vars() {
-        userPass  = new HashMap<>();
-        waterWaterReports = new ArrayList<>(20);
-        waterPurityReports = new ArrayList<>(20);
     }
 
-    public void addPerson(String str, Person p) {
-        userPass.put(str, p);
-    }
-
-//    public void addReport(WaterReport r) {
-//        waterWaterReports.add(r);
-//    }
-//
-//    public void addPurityReport(WaterPurityReport r) {
-//        waterPurityReports.add(r);
-//    }
-//
-//    public ArrayList getReportList() {
-//        return waterWaterReports;
-//    }
-//
-//    public ArrayList getPurityList() {
-//        return waterPurityReports;
-//    }
-//
-//    public WaterReport getReportAtIndex(int index) {
-//        return waterWaterReports.get(index);
-//    }
-//
-//    public WaterPurityReport getPurityAtIndex(int index) {
-//        return waterPurityReports.get(index);
-//    }
-
+    private Person currPerson;
     private WaterReport currWaterReport;
     private WaterPurityReport currPurityReport;
 
-    public void setCurrWaterReport(WaterReport r) {
-        currWaterReport = r;
+    private Double graphLat;
+    private Double graphLong;
+    private String graphChoice;
+    private int graphYear;
+
+    public Double getGraphLat() {
+        return graphLat;
+    }
+    public Double getGraphLong() {
+        return graphLong;
+    }
+    public String getGraphChoice() {
+        return graphChoice;
+    }
+    public int getGraphYear() {
+        return graphYear;
+    }
+    public void setGraphLat(Double dou) {
+        graphLat = dou;
+    }
+    public void setGraphLong(Double dou) {
+        graphLong = dou;
+    }
+    public void setGraphChoice(String str) {
+        graphChoice = str;
+    }
+    public void setGraphYear(int num) {
+        graphYear = num;
     }
 
     public WaterReport getCurrWaterReport() {
         return currWaterReport;
+    }
+
+    public void setCurrWaterReport(WaterReport r) {
+        currWaterReport = r;
     }
 
     public WaterPurityReport getCurrPurityReport() {
@@ -77,16 +71,14 @@ public class vars {
         currPurityReport = r;
     }
 
-    public HashMap getMap() {
-        return userPass;
+    public Person getCurrPerson() {
+        return currPerson;
     }
 
     public void setCurrPerson(Person p) {
         currPerson = p;
     }
 
-    public Person getCurrPerson() {
-        return currPerson;
-    }
+
 
 }

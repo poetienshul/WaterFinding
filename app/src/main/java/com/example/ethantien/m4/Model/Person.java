@@ -8,29 +8,29 @@ package com.example.ethantien.m4.Model;
 
 public abstract class Person {
     private String name;
-    private String ID;
+    private String id;
     private String password;
     private String email;
     private String address;
 
     public Person() {
         //dummy default constructors
-        name = "..";
-        ID = "..";
-        password = "..";
-        email = "..";
-        address = "..";
+//        name = "..";
+//        ID = "..";
+//        password = "..";
+//        email = "..";
+//        address = "..";
     }
 
     /**
      * Constructor for a generic Person
      * @param nameStr name
-     * @param IDStr id
+     * @param IDStr ID
      * @param passwordStr password
      */
     public Person(String nameStr, String IDStr, String passwordStr) {
         name = nameStr;
-        ID = IDStr;
+        id = IDStr;
         password = passwordStr;
     }
 
@@ -67,6 +67,6 @@ public abstract class Person {
     }
 
     public String getID() {
-        return ID;
+        return id;
     }
 }

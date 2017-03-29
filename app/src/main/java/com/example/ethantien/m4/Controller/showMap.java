@@ -84,8 +84,13 @@ public class showMap extends AppCompatActivity implements OnMapReadyCallback, On
         }
         if (vars.getInstance().getCurrWaterReport() != null) {
 
+
             LatLng latlng = new LatLng(vars.getInstance().getCurrWaterReport().getLocationLat(),
                     vars.getInstance().getCurrWaterReport().getLocationLong());
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 11));
+        } else if (vars.getInstance().getCurrPurityReport() != null) {
+            LatLng latlng = new LatLng(vars.getInstance().getCurrPurityReport().getLocationLat(),
+                    vars.getInstance().getCurrPurityReport().getLocationLong());
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 11));
         }
     }

@@ -1,6 +1,7 @@
 package com.example.ethantien.m4.Controller;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,14 @@ import android.widget.Toast;
 import com.example.ethantien.m4.Model.Person;
 import com.example.ethantien.m4.Model.vars;
 import com.example.ethantien.m4.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -73,9 +82,40 @@ public class ViewingProfile extends AppCompatActivity {
                     cur.setName(name);
                     cur.setEmail(email);
                     cur.setAddress(address);
-                    Toast.makeText(ViewingProfile.this, "Information saved successfully.", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(ViewingProfile.this, startApplication.class));
-                    finish();
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String userName = cur.getID();
+                            String str = "";
+                            System.out.println(userName);
+                            if (dataSnapshot.child("Users").child(userName).getValue() != null) {
+                                str = "Users";
+                            } else if (dataSnapshot.child("Workers").child(userName).getValue() != null) {
+                                str = "Workers";
+                            } else if (dataSnapshot.child("Managers").child(userName).getValue() != null) {
+                                str = "Managers";
+                            } else if (dataSnapshot.child("Admins").child(userName).getValue() != null) {
+                                str = "Admins";
+                            }
+                            Map<String, Object> childUpdates = new HashMap<>();
+                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                            System.out.println("/" + str + "/" + userName);
+                            childUpdates.put("/" + str + "/" + userName, cur);
+                            mDatabase.updateChildren(childUpdates);
+                            Toast.makeText(ViewingProfile.this, "Information saved successfully.", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(ViewingProfile.this, startApplication.class));
+                            finish();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(ViewingProfile.this, "Database Error", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+
                 }
 
             }

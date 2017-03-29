@@ -37,27 +37,37 @@
         android:text="View Water Reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="87dp"
-        android:id="@+id/viewReports"
-        android:layout_below="@+id/logout"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/Profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:id="@+id/viewReports" />
 
     <Button
         android:text="View Purity Reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/viewPurityReports"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/viewReports"
-        android:layout_alignStart="@+id/viewReports" />
+        android:layout_below="@+id/viewReports"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:id="@+id/viewPurityReports" />
 
     <Button
         android:text="View Map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
         android:id="@+id/viewMap"
-        android:layout_marginTop="28dp"
-        android:layout_below="@+id/viewPurityReports"
+        android:layout_below="@+id/viewGraph"
         android:layout_toRightOf="@+id/Profile"
         android:layout_toEndOf="@+id/Profile" />
+
+    <Button
+        android:text="View Historical Graph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/viewGraph"
+        android:layout_below="@+id/viewPurityReports"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
