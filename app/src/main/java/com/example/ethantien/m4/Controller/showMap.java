@@ -1,13 +1,13 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.WaterReport;
-import com.example.ethantien.m4.Model.WaterPurityReport;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.WaterReport;
+import com.example.ethantien.m4.model.WaterPurityReport;
+import com.example.ethantien.m4.model.vars;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -28,9 +28,9 @@ import java.util.ArrayList;
 
 public class showMap extends AppCompatActivity implements OnMapReadyCallback, OnMarkerClickListener {
 
-    ArrayList<WaterReport> waterReports;
-    ArrayList<WaterPurityReport> purityReports;
-    ArrayList<MarkerOptions> markers;
+    private ArrayList<WaterReport> waterReports;
+    private ArrayList<WaterPurityReport> purityReports;
+    private ArrayList<MarkerOptions> markers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

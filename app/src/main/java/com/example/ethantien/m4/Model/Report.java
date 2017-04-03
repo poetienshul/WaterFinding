@@ -1,7 +1,8 @@
-package com.example.ethantien.m4.Model;
+package com.example.ethantien.m4.model;
 
 /**
  * Created by ethantien on 3/20/17.
+ * Abstract constructor for the Reports
  */
 
 public abstract class Report {
@@ -14,11 +15,11 @@ public abstract class Report {
     private Double locationLong;
     private String condition;
 
-    public Report() {
+    Report() {
 
     }
 
-    public Report (String date, String time, int reportNumber, String reporterName,
+    Report (String date, String time, int reportNumber, String reporterName,
                               Double locationLat, Double locationLong, String condition) {
         this.date = date;
         this.time = time;

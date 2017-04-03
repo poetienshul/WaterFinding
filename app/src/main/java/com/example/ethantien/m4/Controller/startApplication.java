@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.Manager;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.Manager;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 
 /**

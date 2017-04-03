@@ -1,14 +1,15 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,10 +21,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-
 public class ViewGraph extends AppCompatActivity {
 
     @Override
@@ -31,7 +28,8 @@ public class ViewGraph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_graph);
         TextView title = (TextView) findViewById(R.id.title);
-        title.setText("Historical Report for " + vars.getInstance().getGraphYear());
+        String titleText = "Historical Report for " + vars.getInstance().getGraphYear();
+        title.setText(titleText);
 
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterPurityReports");
@@ -42,7 +40,7 @@ public class ViewGraph extends AppCompatActivity {
                 Double longi = vars.getInstance().getGraphLong();
                 String year = Integer.toString(vars.getInstance().getGraphYear());
                 //<index (month) ,value / count of elements>
-                HashMap<Integer, Node> elements = new HashMap<>();
+                SparseArray<Node> elements = new SparseArray<>();
                 //ArrayList<Node> elements = new ArrayList<>();
                 for (DataSnapshot ele : dataSnapshot.getChildren()) {
                     String temp = ele.child("date").getValue().toString();
@@ -54,19 +52,19 @@ public class ViewGraph extends AppCompatActivity {
                             Double virus = Double.parseDouble(ele.child("virusPPM").getValue().toString());
                             Double contam = Double.parseDouble(ele.child("contaminantPPM").getValue().toString());
                             if (vars.getInstance().getGraphChoice().equals("Virus")) {
-                                if (elements.containsKey(month)) {
+                                if (elements.get(month) != null) {
                                     elements.get(month).addValue(virus);
                                     elements.get(month).incrementCount();
                                 } else {
-                                    elements.put(month, new Node(virus, 1));
+                                    elements.put(month, new Node(virus));
                                 }
 
                             } else if (vars.getInstance().getGraphChoice().equals("Contaminant")){
-                                if (elements.containsKey(month)) {
+                                if (elements.get(month) != null) {
                                     elements.get(month).addValue(contam);
                                     elements.get(month).incrementCount();
                                 } else {
-                                    elements.put(month, new Node(contam, 1));
+                                    elements.put(month, new Node(contam));
                                 }
                             }
                     }
@@ -74,11 +72,11 @@ public class ViewGraph extends AppCompatActivity {
 
                 DataPoint[] pts = new DataPoint[elements.size()];
                 int counter = 0;
-                //ArrayList<Node> = elements.keySet();
-                for (Integer ele : elements.keySet()) {
-                    System.out.println(ele + ", " + elements.get(ele).getValue() / elements.get(ele).getCount());
-                    pts[counter++] = new DataPoint(ele, elements.get(ele).getValue() / elements.get(ele).getCount());
+                for (int i = 0; i < elements.size(); i++) {
+                    int num = elements.keyAt(i);
+                    pts[counter++] = new DataPoint(num, elements.get(num).getValue() / elements.get(num).getCount());
                 }
+
                 GraphView graph = (GraphView) findViewById(R.id.graph);
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pts);
 
@@ -98,7 +96,7 @@ public class ViewGraph extends AppCompatActivity {
                             //return super.formatLabel(value, isValueX);
                         } else {
                             // show currency for y values
-                            return super.formatLabel(value, isValueX);
+                            return super.formatLabel(value, false);
                         }
                     }
                 });
@@ -118,33 +116,39 @@ public class ViewGraph extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewGraph.this, MainActivity.class));
+                startActivity(new Intent(ViewGraph.this, startApplication.class));
                 finish();
             }
         });
 
     }
 
-
+    /**
+     * temp class just to be able to keep track of a month's value and the number of times it
+     * shows up
+     */
     private class Node {
         private Double value;
         private int count;
 
-        public Node(Double val, int num2) {
+        Node(Double val) {
             value = val;
-            count = num2;
+            count = 1;
         }
         public Double getValue() {
             return value;
         }
-        public int getCount() {
+        int getCount() {
             return count;
         }
-        public void addValue(Double num) {
+        void addValue(Double num) {
             value += num;
         }
-        public void incrementCount() {
+        void incrementCount() {
             count++;
+        }
+        public String toString() {
+            return "Node: {Value:" + value + ", Count:" + count + "}";
         }
     }
 

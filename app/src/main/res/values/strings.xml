@@ -1,3 +1,56 @@
 <resources>
-    <string name="app_name">M4</string>
+    <string name="app_name">WaterFinding</string>
+    <string name="EnterWaterRepInformation">Enter Water Report Information</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Lat">Latitude:</string>
+    <string name="Condition">Condition:</string>
+    <string name="VirusPPM">VirusPPM</string>
+    <string name="ContaminantPPM">Contaminant (PPM)</string>
+    <string name="Submit">Submit</string>
+    <string name="Longi">Longitude</string>
+    <string name="EnterUsername">Enter Username:</string>
+    <string name="Type">Type:</string>
+    <string name="Login">Login</string>
+    <string name="EnterPW">Enter Password:</string>
+    <string name="Welcome">Welcome!</string>
+    <string name="Register">Register</string>
+    <string name="AddReport">Add Report</string>
+    <string name="Back">Back</string>
+    <string name="Refresh">Refresh</string>
+    <string name="EnterName">Enter Name:</string>
+    <string name="EnterUserID">Enter User ID:</string>
+    <string name="YouAreA">You are a:</string>
+    <string name="Logout">Logout</string>
+    <string name="Profile">Profile</string>
+    <string name="ViewWR">View Water Reports</string>
+    <string name="ViewPR">View Purity Reports</string>
+    <string name="ViewMap">View Map</string>
+    <string name="ViewHG">View Historical Graph</string>
+    <string name="HistoricalReport">Historical Report</string>
+    <string name="ChoseGraphSettings">Chose Graph Settings:</string>
+    <string name="EnterLat">Enter Latitude:</string>
+    <string name="Select">Select:</string>
+    <string name="EnterYear">Enter Year:</string>
+    <string name="EnterLongitude">Enter Longitude</string>
+    <string name="GenerateGraph">Generate Graph</string>
+    <string name="Location">Location:</string>
+    <string name="SubmittedBy">Submitted by:</string>
+    <string name="DateTime">Date, Time</string>
+    <string name="Virus_PPM">Virus (PPM):</string>
+    <string name="ViewOnMap">View on Map</string>
+    <string name="Contaminant_PPM">Contaminant (PPM):</string>
+    <string name="BackToList">Back to List</string>
+    <string name="Name">Name:</string>
+    <string name="Address">Address:</string>
+    <string name="Save">Save</string>
+    <string name="Email">Email:</string>
+
+
+
+
+
+
+
+
+
 </resources>

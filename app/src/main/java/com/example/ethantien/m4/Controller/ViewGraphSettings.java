@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,16 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ViewGraphSettings extends AppCompatActivity {
 
-    TextView lat;
-    TextView longi;
-    RadioButton virus;
-    RadioButton contaminant;
-    TextView year;
-    Button generate;
-    Button cancel;
-
-    boolean virusOn;
-    boolean contaminantOn;
+    private TextView lat;
+    private TextView longi;
+    private RadioButton virus;
+    private RadioButton contaminant;
+    private TextView year;
+    private boolean virusOn;
+    private boolean contaminantOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +52,8 @@ public class ViewGraphSettings extends AppCompatActivity {
         virus = (RadioButton) findViewById(R.id.virusButton);
         contaminant = (RadioButton) findViewById(R.id.contaminantButton);
         year = (TextView) findViewById(R.id.enterYear);
-        generate = (Button) findViewById(R.id.generateGraph);
-        cancel = (Button) findViewById(R.id.cancel);
+        Button generate = (Button) findViewById(R.id.generateGraph);
+        Button cancel = (Button) findViewById(R.id.cancel);
 
         /**
          * button handler for the cancel button
@@ -76,13 +73,13 @@ public class ViewGraphSettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (lat.getText().toString().equals("") || longi.getText().toString().equals("") ||
-                    year.getText().toString().equals("") || !(virus.isChecked() ^ contaminant.isChecked())){
+                    year.getText().toString().equals("") || (virus.isChecked() == contaminant.isChecked())){
                     Toast.makeText(ViewGraphSettings.this, "Please enter all information.", Toast.LENGTH_LONG).show();
                 } else {
                     Double latNum = Double.parseDouble(lat.getText().toString());
                     Double longNum = Double.parseDouble(longi.getText().toString());
                     int yearNum = Integer.parseInt(year.getText().toString());
-                    String choice = "";
+                    String choice;
                     if (virus.isChecked()) {
                         choice = "Virus";
                     } else {
@@ -108,7 +105,7 @@ public class ViewGraphSettings extends AppCompatActivity {
     }
 
     public void onVirusButtonClicked(View view) {
-        virus = (RadioButton) findViewById(R.id.virusButton);
+        virus = (RadioButton)view;
         contaminant = (RadioButton) findViewById(R.id.contaminantButton);
 
         if (virusOn) {
@@ -124,7 +121,7 @@ public class ViewGraphSettings extends AppCompatActivity {
 
     public void onContaminantButtonClicked(View view) {
         virus = (RadioButton) findViewById(R.id.virusButton);
-        contaminant = (RadioButton) findViewById(R.id.contaminantButton);
+        contaminant = (RadioButton)view;
 
         if (contaminantOn){
             contaminant.setChecked(false);
@@ -136,4 +133,5 @@ public class ViewGraphSettings extends AppCompatActivity {
         }
         contaminantOn = !contaminantOn;
     }
+
 }

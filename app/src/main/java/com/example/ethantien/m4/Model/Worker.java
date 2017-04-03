@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Model;
+package com.example.ethantien.m4.model;
 
 /**
  * Created by ethantien on 2/21/17.
@@ -7,12 +7,12 @@ package com.example.ethantien.m4.Model;
  */
 public class Worker extends User {
 
-    public Worker() {
+    Worker() {
 
     }
 
     /**
-     * Constructer chainer to create a new subclass of the person Class
+     * Constructor chaining to create a new subclass of the person Class
      * @param nameStr name
      * @param IDStr id
      * @param passwordStr password

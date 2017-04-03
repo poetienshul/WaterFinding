@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.WaterReports">
+    tools:context="com.example.ethantien.m4.controller.WaterReports">
 
     <Button
-        android:text="Add Report"
+        android:text="@string/AddReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,11 +29,19 @@
         android:layout_below="@+id/addReport" />
 
     <Button
-        android:text="Back"
+        android:text="@string/Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/lisp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/backList" />
+
+    <Button
+        android:text="@string/Refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lisp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/refreshButton" />
 </RelativeLayout>

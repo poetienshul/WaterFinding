@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.MainActivity">
+    tools:context="com.example.ethantien.m4.controller.MainActivity">
 
     <Button
-        android:text="Login"
+        android:text="@string/Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="63dp"
@@ -20,16 +20,18 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="Welcome!"
+        android:text="@string/Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:id="@+id/Welcome"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/cast_expanded_controller_background_color"
+        android:textSize="24sp" />
 
     <Button
-        android:text="Register"
+        android:text="@string/Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logButton"

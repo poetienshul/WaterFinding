@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.WaterReport;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.WaterReport;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,10 +26,10 @@ import java.util.ArrayList;
  */
 public class WaterReports extends AppCompatActivity {
 
-    ArrayList<WaterReport> listItems;
+    private ArrayList<WaterReport> listItems;
 
-    ArrayAdapter<String> adapter;
-    ListView list;
+    private ArrayAdapter<String> adapter;
+    private ListView list;
 
 
     @Override
@@ -39,36 +39,8 @@ public class WaterReports extends AppCompatActivity {
 
         Button addReports = (Button) findViewById(R.id.addReport);
         Button back = (Button) findViewById(R.id.backList);
-        listItems = new ArrayList<>();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
-        mDatabase.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    listItems.add(snapshot.getValue(WaterReport.class));
-                }
-                //make listview of all water waterReports
-                ArrayList<String> titles = new ArrayList<>();
-                for (WaterReport ele : listItems) {
-                    titles.add(ele.getReportNumber() + ". <" + ele.getLocationLat() + ", " + ele.getLocationLong() + ">");
-                }
-
-                adapter = new ArrayAdapter<String>(WaterReports.this, android.R.layout.simple_list_item_1 ,titles);
-                list = (ListView) findViewById(R.id.lisp);
-                list.setAdapter(adapter);
-                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                        vars.getInstance().setCurrWaterReport(listItems.get(position));
-                        startActivity(new Intent(WaterReports.this, viewReportDetails.class));
-                        finish();
-                    }
-                });
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(WaterReports.this, "Database Error", Toast.LENGTH_LONG).show();
-            }
-        });
+        Button refresh = (Button) findViewById(R.id.refreshButton);
+        getReports();
 
 
 
@@ -96,8 +68,53 @@ public class WaterReports extends AppCompatActivity {
             }
         });
 
+        /**
+         * Button handler for the refresh button
+         * @param view the button
+         */
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getReports();
 
+            }
+        });
+    }
 
+    /**
+     * go to the database, get a list of all the water reports, and displays them on the screen
+     */
+    private void getReports() {
+        listItems = new ArrayList<>();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
+        mDatabase.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    listItems.add(snapshot.getValue(WaterReport.class));
+                }
+                //make listview of all water waterReports
+                ArrayList<String> titles = new ArrayList<>();
+                for (WaterReport ele : listItems) {
+                    titles.add(ele.getReportNumber() + ". <" + ele.getLocationLat() + ", " + ele.getLocationLong() + ">");
+                }
 
+                adapter = new ArrayAdapter<>(WaterReports.this, android.R.layout.simple_list_item_1 ,titles);
+                list = (ListView) findViewById(R.id.lisp);
+                list.setAdapter(adapter);
+                Toast.makeText(WaterReports.this, "Refreshed", Toast.LENGTH_LONG).show();
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                        vars.getInstance().setCurrWaterReport(listItems.get(position));
+                        startActivity(new Intent(WaterReports.this, viewReportDetails.class));
+                        finish();
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(WaterReports.this, "Database Error", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

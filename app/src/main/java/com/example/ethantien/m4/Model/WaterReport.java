@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Model;
+package com.example.ethantien.m4.model;
 
 /**
  * Created by ethantien on 2/28/17.

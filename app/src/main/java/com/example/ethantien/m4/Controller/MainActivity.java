@@ -1,29 +1,12 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
-import android.content.SyncStatusObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.ethantien.m4.Model.Admin;
-import com.example.ethantien.m4.Model.User;
-import com.example.ethantien.m4.Model.WaterPurityReport;
-import com.example.ethantien.m4.Model.WaterReport;
-import com.example.ethantien.m4.Model.Worker;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-
 import com.example.ethantien.m4.R;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * First screen user sees, gives option to create new account or login as existing user

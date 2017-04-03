@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.viewReportDetails">
+    tools:context="com.example.ethantien.m4.controller.viewReportDetails">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:text="Location: "
+        android:text="@string/Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView13"
@@ -32,7 +32,7 @@
 
 
     <TextView
-        android:text="Condition:"
+        android:text="@string/Condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
@@ -41,8 +41,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    x<TextView
-        android:text="Date, Time:"
+    <TextView
+        android:text="@string/DateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
@@ -52,7 +52,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Submitted by:"
+        android:text="@string/SubmittedBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -62,7 +62,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Type:"
+        android:text="@string/Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -96,7 +96,9 @@
         android:id="@+id/condition" />
 
     <Button
-        android:text="View on Map"
+        android:text="@string/ViewOnMap"
+        android:layout_toEndOf="@+id/backList"
+        android:layout_toRightOf="@+id/backList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/backMap"
@@ -108,7 +110,7 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:text="Back to List"
+        android:text="@string/BackToList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"

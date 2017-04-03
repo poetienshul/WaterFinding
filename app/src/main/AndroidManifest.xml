@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -14,26 +14,38 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDFJItnjDnBkcrBQYPJpa16r0I8lbxdTzY" />
 
-        <activity android:name=".Controller.MainActivity">
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.logScreen" />
-        <activity android:name=".Controller.startApplication" />
-        <activity android:name=".Controller.Register" />
-        <activity android:name=".Controller.ViewingProfile" />
-        <activity android:name=".Controller.WaterReports" />
-        <activity android:name=".Controller.addReport" />
-        <activity android:name=".Controller.viewReportDetails" />
-        <activity android:name=".Controller.showMap" />
-        <activity android:name=".Controller.viewPurityDetails" />
-        <activity android:name=".Controller.addPurityReport" />
-        <activity android:name=".Controller.PurityReports" />
-        <activity android:name=".Controller.ViewGraph" />
-        <activity android:name=".Controller.ViewGraphSettings"></activity>
+        <activity
+            android:name="com.example.ethantien.m4.controller.ViewGraph"
+            android:label="@string/app_name" >
+            <intent-filter android:label="@string/app_name">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.example.com/WaterFinding” -->
+                <data android:scheme="http"
+                    android:host="www.example.com"
+                    android:pathPrefix="/WaterFinding" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controller.logScreen" />
+        <activity android:name=".controller.startApplication" />
+        <activity android:name=".controller.Register" />
+        <activity android:name=".controller.ViewingProfile" />
+        <activity android:name=".controller.WaterReports" />
+        <activity android:name=".controller.addReport" />
+        <activity android:name=".controller.viewReportDetails" />
+        <activity android:name=".controller.showMap" />
+        <activity android:name=".controller.viewPurityDetails" />
+        <activity android:name=".controller.addPurityReport" />
+        <activity android:name=".controller.PurityReports" />
+        <activity android:name=".controller.ViewGraphSettings" />
     </application>
 
 </manifest>

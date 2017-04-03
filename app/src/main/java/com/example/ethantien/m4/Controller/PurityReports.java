@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.WaterPurityReport;
-import com.example.ethantien.m4.Model.WaterReport;
-import com.example.ethantien.m4.Model.Worker;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.WaterPurityReport;
+import com.example.ethantien.m4.model.Worker;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,10 +24,10 @@ import java.util.ArrayList;
 
 public class PurityReports extends AppCompatActivity {
 
-    ArrayList<WaterPurityReport> listItems;
+    private ArrayList<WaterPurityReport> listItems;
 
-    ArrayAdapter<String> adapter;
-    ListView list;
+    private ArrayAdapter<String> adapter;
+    private ListView list;
 
 
     @Override
@@ -38,6 +37,53 @@ public class PurityReports extends AppCompatActivity {
 
         Button addReports = (Button) findViewById(R.id.addReport);
         Button back = (Button) findViewById(R.id.backList);
+        Button refresh = (Button) findViewById(R.id.refreshButton);
+
+        getReports();
+        /**
+         * Button handler for the Add Reports button
+         * @param view the button
+         */
+        addReports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!(vars.getInstance().getCurrPerson() instanceof Worker)) {
+                    Toast.makeText(PurityReports.this, "Only Workers may add Purity Reports", Toast.LENGTH_LONG).show();
+                } else {
+                    startActivity(new Intent(PurityReports.this, addPurityReport.class));
+                }
+
+            }
+        });
+
+        /**
+         * Button handler for the back button
+         * @param view the button
+         */
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PurityReports.this, startApplication.class));
+                finish();
+            }
+        });
+
+        /**
+         * Button handler for the refresh button
+         * @param view the button
+         */
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getReports();
+            }
+        });
+    }
+
+    /**
+     * go to the database, get a list of all the purity reports, and displays them on the screen
+     */
+    private void getReports() {
         listItems = new ArrayList<>();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterPurityReports");
         mDatabase.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -72,32 +118,6 @@ public class PurityReports extends AppCompatActivity {
                 Toast.makeText(PurityReports.this, "Database Error", Toast.LENGTH_LONG).show();
             }
         });
-        /**
-         * Button handler for the Add Reports button
-         * @param view the button
-         */
-        addReports.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!(vars.getInstance().getCurrPerson() instanceof Worker)) {
-                    Toast.makeText(PurityReports.this, "Only Workers may add Purity Reports", Toast.LENGTH_LONG).show();
-                } else {
-                    startActivity(new Intent(PurityReports.this, addPurityReport.class));
-                }
 
-            }
-        });
-
-        /**
-         * Button handler for the back button
-         * @param view the button
-         */
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(PurityReports.this, startApplication.class));
-                finish();
-            }
-        });
     }
 }

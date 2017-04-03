@@ -1,7 +1,8 @@
-package com.example.ethantien.m4.Model;
+package com.example.ethantien.m4.model;
 
 /**
  * Created by ethantien on 3/12/17.
+ * attributes and constructor for the water purity report
  */
 
 public class WaterPurityReport extends Report{

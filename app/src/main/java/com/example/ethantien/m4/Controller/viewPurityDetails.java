@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ethantien.m4.Model.WaterPurityReport;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.WaterPurityReport;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
+
+import java.util.Locale;
 
 public class viewPurityDetails extends AppCompatActivity {
 
@@ -37,8 +39,8 @@ public class viewPurityDetails extends AppCompatActivity {
         dateAndTime.setText(ele.getDate() + ", " + ele.getTime());
         condition.setText(ele.getCondition());
         name.setText(ele.getReporterName());
-        virus.setText(ele.getVirusPPM().toString());
-        contaminant.setText(ele.getContaminantPPM().toString());
+        virus.setText(String.format(Locale.US, "%f", ele.getVirusPPM()));
+        contaminant.setText(String.format(Locale.US, "%f", ele.getContaminantPPM()));
 
         Button backList = (Button) findViewById(R.id.backList);
         Button backMap = (Button) findViewById(R.id.backMap);

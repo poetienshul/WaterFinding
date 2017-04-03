@@ -1,7 +1,4 @@
-package com.example.ethantien.m4.Model;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+package com.example.ethantien.m4.model;
 
 /**
  * Created by ethantien on 2/20/17.

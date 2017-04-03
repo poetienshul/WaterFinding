@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,41 +10,94 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.WaterReport;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.WaterReport;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class addReport extends AppCompatActivity {
 
     private EditText latitude;
     private EditText longitude;
-    private Button add;
-    private Button cancel;
     private Spinner choseType;
     private Spinner choseCondition;
-
-
-    private int lastCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_report);
-        cancel = (Button) findViewById(R.id.cancel);
-        addReport();
+        Button cancel = (Button) findViewById(R.id.cancel);
+        Button add = (Button) findViewById(R.id.submitButton);
+
+        latitude = (EditText) findViewById(R.id.latitude);
+        longitude = (EditText) findViewById(R.id.longitude);
+        choseType = (Spinner) findViewById(R.id.typeSpinner);
+        choseCondition = (Spinner) findViewById(R.id.conditionSpinner);
+
+        /**
+         * add types to the choseType spinner
+         */
+        ArrayList<String> types = new ArrayList<>();
+        types.add("Bottled");
+        types.add("Well");
+        types.add("Stream");
+        types.add("Lake");
+        types.add("Spring");
+        types.add("Other");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(addReport.this, android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choseType.setAdapter(adapter);
+
+        /**
+         * add types to the choseCondition spinner
+         */
+        ArrayList<String> conditions = new ArrayList<>();
+        conditions.add("Waste");
+        conditions.add("Treatable - Clear");
+        conditions.add("Treatable - Muddy");
+        conditions.add("Potable");
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(addReport.this, android.R.layout.simple_spinner_item, conditions);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        choseCondition.setAdapter(adapter2);
+
+
+        /**
+         * Button handler for the submit button
+         * @param view the button
+         */
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")) {
+                    Toast.makeText(addReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
+                } else {
+                    Double lat = Double.parseDouble(latitude.getText().toString());
+                    Double longi = Double.parseDouble(longitude.getText().toString());
+                    if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
+                        Toast.makeText(addReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        String waterType = choseType.getSelectedItem().toString();
+                        String waterCondition = choseCondition.getSelectedItem().toString();
+                        addWaterReport(lat, longi, waterType, waterCondition);
+
+                        finish();
+                    }
+                }
+            }
+        });
         /**
          * Button handler for the cancel button
          *
@@ -64,86 +117,32 @@ public class addReport extends AppCompatActivity {
      * this method pulls the data that come from the textboxes that are on the screen, and then
      * pushes the new water report to the Firebase Database if it is valid.
      * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
+     * @param lat the latitude
+     * @param longi the longitude
+     * @param waterType the type of the water
+     * @param waterCondition the condition of the water
      */
-    private void addReport() {
+    private void addWaterReport(final Double lat, final Double longi, final String waterType, final String waterCondition) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
         mDatabase.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int lastCount = 1;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     lastCount = snapshot.getValue(WaterReport.class).getReportNumber() + 1;
                 }
+                String date = new SimpleDateFormat("MM-dd-yyyy", Locale.US).format(new Date());
+                String time = new SimpleDateFormat("hh:mm aaa", Locale.US).format(new Date());
 
-                latitude = (EditText) findViewById(R.id.latitude);
-                longitude = (EditText) findViewById(R.id.longitude);
-                add = (Button) findViewById(R.id.submitButton);
-                choseType = (Spinner) findViewById(R.id.typeSpinner);
-                choseCondition = (Spinner) findViewById(R.id.conditionSpinner);
+                String name = vars.getInstance().getCurrPerson().getName();
+                WaterReport temp = new WaterReport(date, time, lastCount, name, lat, longi, waterType, waterCondition);
+                Map<String, Object> childUpdates = new HashMap<>();
 
-                /**
-                 * add types to the choseType spinner
-                 */
-                ArrayList<String> types = new ArrayList<>();
-                types.add("Bottled");
-                types.add("Well");
-                types.add("Stream");
-                types.add("Lake");
-                types.add("Spring");
-                types.add("Other");
-                ArrayAdapter<String> adapter = new ArrayAdapter(addReport.this, android.R.layout.simple_spinner_item, types);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                choseType.setAdapter(adapter);
-
-                /**
-                 * add types to the choseCondition spinner
-                 */
-                ArrayList<String> conditions = new ArrayList<>();
-                conditions.add("Waste");
-                conditions.add("Treatable - Clear");
-                conditions.add("Treatable - Muddy");
-                conditions.add("Potable");
-                ArrayAdapter<String> adapter2 = new ArrayAdapter(addReport.this, android.R.layout.simple_spinner_item, conditions);
-                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                choseCondition.setAdapter(adapter2);
-
-
-                /**
-                 * Button handler for the submit button
-                 * @param view the button
-                 */
-                add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")) {
-                            Toast.makeText(addReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
-                        } else {
-                            Double lat = Double.parseDouble(latitude.getText().toString());
-                            Double longi = Double.parseDouble(longitude.getText().toString());
-                            if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
-                                Toast.makeText(addReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
-                            } else {
-                                String date = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
-                                String time = new SimpleDateFormat("hh:mm aaa").format(new Date());
-                                String waterType = choseType.getSelectedItem().toString();
-                                String waterCondition = choseCondition.getSelectedItem().toString();
-                                String name = vars.getInstance().getCurrPerson().getName();
-                                WaterReport meow = new WaterReport(date, time, lastCount, name, lat, longi, waterType, waterCondition);
-                                //String key = mDatabase.child("WaterReports").push().getKey();
-                                Map<String, Object> childUpdates = new HashMap<>();
-
-                                childUpdates.put("" + meow.getReportNumber(), meow);
-                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
-                                mDatabase.updateChildren(childUpdates);
-                                Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
-
-                                startActivity(new Intent(addReport.this, WaterReports.class));
-
-                                finish();
-                                System.out.println(lastCount);
-                            }
-                        }
-                    }
-                });
+                childUpdates.put("" + temp.getReportNumber(), temp);
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
+                mDatabase.updateChildren(childUpdates);
+                Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(addReport.this, WaterReports.class));
 
             }
 

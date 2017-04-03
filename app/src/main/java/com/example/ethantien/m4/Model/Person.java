@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Model;
+package com.example.ethantien.m4.model;
 
 /**
  * Created by ethantien on 2/21/17.
@@ -13,7 +13,7 @@ public abstract class Person {
     private String email;
     private String address;
 
-    public Person() {
+    Person() {
         //dummy default constructors
 //        name = "..";
 //        ID = "..";
@@ -28,7 +28,7 @@ public abstract class Person {
      * @param IDStr ID
      * @param passwordStr password
      */
-    public Person(String nameStr, String IDStr, String passwordStr) {
+    Person(String nameStr, String IDStr, String passwordStr) {
         name = nameStr;
         id = IDStr;
         password = passwordStr;

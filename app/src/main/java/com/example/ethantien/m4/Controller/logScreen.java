@@ -1,4 +1,4 @@
-package com.example.ethantien.m4.Controller;
+package com.example.ethantien.m4.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ethantien.m4.Model.Admin;
-import com.example.ethantien.m4.Model.Manager;
-import com.example.ethantien.m4.Model.Person;
-import com.example.ethantien.m4.Model.User;
-import com.example.ethantien.m4.Model.Worker;
-import com.example.ethantien.m4.Model.vars;
+import com.example.ethantien.m4.model.Admin;
+import com.example.ethantien.m4.model.Manager;
+import com.example.ethantien.m4.model.Person;
+import com.example.ethantien.m4.model.User;
+import com.example.ethantien.m4.model.Worker;
+import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -78,19 +78,25 @@ public class logScreen extends AppCompatActivity {
                             Toast.makeText(logScreen.this, "Please fill in entire form", Toast.LENGTH_LONG).show();
                         } else {
                             String str = "";
+                            Person temp = new User();
                             if (dataSnapshot.child("Users").child(userName).getValue() != null) {
                                 str = "Users";
+                                temp = dataSnapshot.child(str).child(userName).getValue(User.class);
                             } else if (dataSnapshot.child("Workers").child(userName).getValue() != null) {
                                 str = "Workers";
+                                temp = dataSnapshot.child(str).child(userName).getValue(Worker.class);
                             } else if (dataSnapshot.child("Managers").child(userName).getValue() != null) {
                                 str = "Managers";
+                                temp = dataSnapshot.child(str).child(userName).getValue(Manager.class);
                             } else if (dataSnapshot.child("Admins").child(userName).getValue() != null) {
                                 str = "Admins";
+                                temp = dataSnapshot.child(str).child(userName).getValue(Admin.class);
                             }
                             if (str.equals("")) {
                                 Toast.makeText(logScreen.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                             } else {
-                                if (dataSnapshot.child(str).child(userName).child("password").getValue().toString().equals(passw)) {
+                                //Person temp = dataSnapshot.child(str).child(userName).getValue()
+                                if (temp.getPassword().equals(passw)) {
                                     Toast.makeText(logScreen.this, "Login Successful", Toast.LENGTH_LONG).show();
                                     switch (str) {
                                         case "Users":

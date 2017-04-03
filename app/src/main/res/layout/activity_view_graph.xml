@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.ViewGraph">
+    tools:context="com.example.ethantien.m4.controller.ViewGraph">
 
     <com.jjoe64.graphview.GraphView
         android:layout_width="wrap_content"
@@ -20,7 +20,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Historical Report"
+        android:text="@string/HistoricalReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
@@ -30,7 +30,7 @@
         android:textColor="?android:attr/editTextColor" />
 
     <Button
-        android:text="Back"
+        android:text="@string/Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/graph"

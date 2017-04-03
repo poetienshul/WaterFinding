@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.startApplication">
+    tools:context="com.example.ethantien.m4.controller.startApplication">
 
     <Button
-        android:text="Logout"
+        android:text="@string/Logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,7 +23,7 @@
         android:id="@+id/logout" />
 
     <Button
-        android:text="Profile"
+        android:text="@string/Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/logout"
@@ -34,7 +34,7 @@
         android:id="@+id/Profile" />
 
     <Button
-        android:text="View Water Reports"
+        android:text="@string/ViewWR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Profile"
@@ -43,7 +43,7 @@
         android:id="@+id/viewReports" />
 
     <Button
-        android:text="View Purity Reports"
+        android:text="@string/ViewPR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/viewReports"
@@ -52,7 +52,7 @@
         android:id="@+id/viewPurityReports" />
 
     <Button
-        android:text="View Map"
+        android:text="@string/ViewMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
@@ -62,7 +62,7 @@
         android:layout_toEndOf="@+id/Profile" />
 
     <Button
-        android:text="View Historical Graph"
+        android:text="@string/ViewHG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

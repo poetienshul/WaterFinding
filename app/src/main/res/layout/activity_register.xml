@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.Register">
+    tools:context="com.example.ethantien.m4.controller.Register">
 
     <TextView
-        android:text="Enter Name:"
+        android:text="@string/EnterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -30,24 +30,25 @@
         android:layout_below="@+id/EnterName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        tools:textSize="10sp"
+        tools:textSize="12sp"
         android:layout_alignRight="@+id/userID"
         android:layout_alignEnd="@+id/userID" />
 
     <Button
-        android:text="Cancel"
+        android:text="@string/Register"
+        android:id="@+id/regButton"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="43dp"
         android:layout_marginStart="43dp"
-        android:id="@+id/cancelButton"
-        android:layout_alignBaseline="@+id/regButton"
-        android:layout_alignBottom="@+id/regButton"
-        android:layout_toRightOf="@+id/regButton"
-        android:layout_toEndOf="@+id/regButton" />
+        android:layout_alignBaseline="@+id/cancelButton"
+        android:layout_alignBottom="@+id/cancelButton"
+        android:layout_toRightOf="@+id/cancelButton"
+        android:layout_toEndOf="@+id/cancelButton" />
 
     <TextView
-        android:text="Enter User ID:"
+        android:text="@string/EnterUserID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
@@ -67,7 +68,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Enter Password"
+        android:text="@string/EnterPW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
@@ -88,7 +89,7 @@
         android:layout_marginTop="15dp" />
 
     <TextView
-        android:text="You are a:"
+        android:text="@string/YouAreA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
@@ -107,10 +108,11 @@
         android:layout_marginTop="11dp" />
 
     <Button
-        android:text="Register"
+        android:text="@string/Cancel"
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/regButton"
+
         android:layout_alignTop="@+id/accType"
         android:layout_toRightOf="@+id/textView5"
         android:layout_toEndOf="@+id/textView5"

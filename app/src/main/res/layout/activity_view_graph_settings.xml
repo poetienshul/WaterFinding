@@ -8,10 +8,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ethantien.m4.Controller.ViewGraphSettings">
+    tools:context="com.example.ethantien.m4.controller.ViewGraphSettings">
 
     <TextView
-        android:text="Chose Graph Settings:"
+        android:text="@string/ChoseGraphSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
         android:textSize="24sp" />
 
     <TextView
-        android:text="Enter Latitude:"
+        android:text="@string/EnterLat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"
@@ -32,7 +32,7 @@
         android:layout_alignParentStart="true" />
 
     <RadioButton
-        android:text="VirusPPM"
+        android:text="@string/VirusPPM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView21"
@@ -45,7 +45,7 @@
         android:id="@+id/virusButton" />
 
     <RadioButton
-        android:text="ContaminantPPM"
+        android:text="@string/ContaminantPPM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -56,7 +56,7 @@
         android:layout_alignStart="@+id/virusButton" />
 
     <TextView
-        android:text="Select:"
+        android:text="@string/Select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/contaminantButton"
@@ -65,7 +65,7 @@
         android:id="@+id/textView23" />
 
     <TextView
-        android:text="Enter Year:"
+        android:text="@string/EnterYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="41dp"
@@ -75,7 +75,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Enter Longitude:"
+        android:text="@string/EnterLongitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -116,7 +116,7 @@
         android:inputType="number" />
 
     <Button
-        android:text="Generate Graph"
+        android:text="@string/GenerateGraph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -128,7 +128,7 @@
         android:layout_marginStart="32dp" />
 
     <Button
-        android:text="Cancel"
+        android:text="@string/Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/generateGraph"
