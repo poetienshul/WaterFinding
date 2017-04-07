@@ -11,11 +11,6 @@ import android.widget.Toast;
 
 import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class ViewGraphSettings extends AppCompatActivity {
 
@@ -34,18 +29,6 @@ public class ViewGraphSettings extends AppCompatActivity {
         virusOn = false;
         contaminantOn = false;
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ViewGraphSettings.this, "Database Error.", Toast.LENGTH_LONG).show();
-
-            }
-        });
 
         lat = (TextView) findViewById(R.id.enterLat);
         longi = (TextView) findViewById(R.id.enterLong);
@@ -72,36 +55,48 @@ public class ViewGraphSettings extends AppCompatActivity {
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (lat.getText().toString().equals("") || longi.getText().toString().equals("") ||
-                    year.getText().toString().equals("") || (virus.isChecked() == contaminant.isChecked())){
-                    Toast.makeText(ViewGraphSettings.this, "Please enter all information.", Toast.LENGTH_LONG).show();
-                } else {
-                    Double latNum = Double.parseDouble(lat.getText().toString());
-                    Double longNum = Double.parseDouble(longi.getText().toString());
-                    int yearNum = Integer.parseInt(year.getText().toString());
-                    String choice;
-                    if (virus.isChecked()) {
-                        choice = "Virus";
-                    } else {
-                        choice = "Contaminant";
-                    }
-                    if (latNum > 90 || latNum < -90 || longNum > 180 || longNum < -180) {
-                        Toast.makeText(ViewGraphSettings.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
-                    } else if (Integer.toString(yearNum).length() != 4){
-                        Toast.makeText(ViewGraphSettings.this, "Please enter a valid year.", Toast.LENGTH_LONG).show();
-                    } else {
-                        vars.getInstance().setGraphLat(latNum);
-                        vars.getInstance().setGraphLong(longNum);
-                        vars.getInstance().setGraphYear(yearNum);
-                        vars.getInstance().setGraphChoice(choice);
+                try {
+                    if (validInput(lat.getText().toString(), longi.getText().toString(),
+                            year.getText().toString(), virus.isChecked(), contaminant.isChecked())) {
+                        vars.getInstance().setGraphLat(Double.parseDouble(lat.getText().toString()));
+                        vars.getInstance().setGraphLong(Double.parseDouble(longi.getText().toString()));
+                        vars.getInstance().setGraphYear(Integer.parseInt(year.getText().toString()));
+                        vars.getInstance().setGraphChoice(virus.isChecked() ? "Virus" : "Contaminant");
                         startActivity(new Intent(ViewGraphSettings.this, ViewGraph.class));
                         finish();
                     }
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(ViewGraphSettings.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 
         });
 
+    }
+
+    /**
+     * returns true whether or not the input is valid
+     * valid = no empty parameters, longitude/ latitude are valid, year is valid
+     * @param lat latitude
+     * @param longi longitude
+     * @param year year
+     * @param virus virusPPM
+     * @param contaminant contaminant PPM
+     * @return true of valid is input, throws exception otherwise
+     */
+    private boolean validInput(String lat, String longi, String year, Boolean virus, Boolean contaminant) {
+        if (lat.equals("") || longi.equals("") || year.equals("") || (virus == contaminant)) {
+            throw new IllegalArgumentException("Please enter all information");
+        } else {
+            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
+                || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
+                throw new IllegalArgumentException("Please enter valid coordinates");
+            } else if (year.length() != 4) {
+                throw new IllegalArgumentException("Please enter a valid year");
+            } else {
+                return true;
+            }
+        }
     }
 
     public void onVirusButtonClicked(View view) {

@@ -39,12 +39,10 @@ public class ViewGraph extends AppCompatActivity {
                 Double lat = vars.getInstance().getGraphLat();
                 Double longi = vars.getInstance().getGraphLong();
                 String year = Integer.toString(vars.getInstance().getGraphYear());
-                //<index (month) ,value / count of elements>
                 SparseArray<Node> elements = new SparseArray<>();
-                //ArrayList<Node> elements = new ArrayList<>();
+
                 for (DataSnapshot ele : dataSnapshot.getChildren()) {
                     String temp = ele.child("date").getValue().toString();
-                    //System.out.println(Double.parseDouble(ele.child("locationLong").getValue().toString()));
                     if (longi.equals(Double.parseDouble(ele.child("locationLong").getValue().toString()))
                         && lat.equals(Double.parseDouble(ele.child("locationLat").getValue().toString()))
                         && year.equals(temp.substring(temp.length() - 4))) {
@@ -70,12 +68,7 @@ public class ViewGraph extends AppCompatActivity {
                     }
                 }
 
-                DataPoint[] pts = new DataPoint[elements.size()];
-                int counter = 0;
-                for (int i = 0; i < elements.size(); i++) {
-                    int num = elements.keyAt(i);
-                    pts[counter++] = new DataPoint(num, elements.get(num).getValue() / elements.get(num).getCount());
-                }
+                DataPoint[] pts = getPoints(elements);
 
                 GraphView graph = (GraphView) findViewById(R.id.graph);
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pts);
@@ -121,6 +114,16 @@ public class ViewGraph extends AppCompatActivity {
             }
         });
 
+    }
+
+    private DataPoint[] getPoints(SparseArray<Node> arr) {
+        DataPoint[] pts = new DataPoint[arr.size()];
+        int counter = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            int num = arr.keyAt(i);
+            pts[counter++] = new DataPoint(num, arr.get(num).getValue() / arr.get(num).getCount());
+        }
+        return pts;
     }
 
     /**

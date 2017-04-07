@@ -34,8 +34,23 @@ public class logScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_screen);
-        login();
         Button cancel = (Button) findViewById(R.id.cancel);
+        Button enterKeys = (Button) findViewById(R.id.loginButton);
+
+        username = (EditText) findViewById(R.id.user);
+        password = (EditText) findViewById(R.id.pass);
+
+        /**
+         * Button handler for the login button
+         * @param view the button
+         */
+        enterKeys.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login(username.getText().toString(), password.getText().toString());
+            }
+        });
+
 
         /**
          * Button handler for the cancel button
@@ -53,80 +68,69 @@ public class logScreen extends AppCompatActivity {
     /**
      * takes the values from the textboxes and checks to see if a user exists with the given
      * username and password, and then enters the application with said credentials
+     * @param user username entered
+     * @param pass password entered
      */
+    private void login(final String user, final String pass) {
 
-    private void login() {
-        username = (EditText) findViewById(R.id.user);
-        password = (EditText) findViewById(R.id.pass);
-
-        Button enterKeys = (Button) findViewById(R.id.loginButton);
-
-        /**
-         * Button handler for the login button
-         * @param view the button
-         */
-        enterKeys.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String userName = username.getText().toString();
-                        String passw = password.getText().toString();
-                        if (userName.equals("") || passw.equals("")) {
-                            Toast.makeText(logScreen.this, "Please fill in entire form", Toast.LENGTH_LONG).show();
+            public void onDataChange (DataSnapshot dataSnapshot) {
+                if (user.equals("") || pass.equals("")) {
+                    Toast.makeText(logScreen.this, "Please enter values.", Toast.LENGTH_LONG).show();
+                } else {
+                    String str = "";
+                    Person temp = new User();
+                    if (dataSnapshot.child("Users").child(user).getValue() != null) {
+                        str = "Users";
+                        temp = dataSnapshot.child(str).child(user).getValue(User.class);
+                    } else if (dataSnapshot.child("Workers").child(user).getValue() != null) {
+                        str = "Workers";
+                        temp = dataSnapshot.child(str).child(user).getValue(Worker.class);
+                    } else if (dataSnapshot.child("Managers").child(user).getValue() != null) {
+                        str = "Managers";
+                        temp = dataSnapshot.child(str).child(user).getValue(Manager.class);
+                    } else if (dataSnapshot.child("Admins").child(user).getValue() != null) {
+                        str = "Admins";
+                        temp = dataSnapshot.child(str).child(user).getValue(Admin.class);
+                    }
+                    if (str.equals("")) {
+                        Toast.makeText(logScreen.this, "Invalid username or password.", Toast.LENGTH_LONG).show();
+                    } else {
+                        if (temp.getPassword().equals(pass)) {
+                            switch (str) {
+                                case "Users":
+                                    vars.getInstance().setCurrPerson(dataSnapshot.child("Users").child(user).getValue(User.class));
+                                    break;
+                                case "Workers":
+                                    vars.getInstance().setCurrPerson(dataSnapshot.child("Workers").child(user).getValue(Worker.class));
+                                    break;
+                                case "Managers":
+                                    vars.getInstance().setCurrPerson(dataSnapshot.child("Managers").child(user).getValue(Manager.class));
+                                    break;
+                                case "Admins":
+                                    vars.getInstance().setCurrPerson(dataSnapshot.child("Admins").child(user).getValue(Admin.class));
+                                    break;
+                            }
+
+                            Toast.makeText(logScreen.this, "Login Successful", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(logScreen.this, startApplication.class));
+                            finish();
                         } else {
-                            String str = "";
-                            Person temp = new User();
-                            if (dataSnapshot.child("Users").child(userName).getValue() != null) {
-                                str = "Users";
-                                temp = dataSnapshot.child(str).child(userName).getValue(User.class);
-                            } else if (dataSnapshot.child("Workers").child(userName).getValue() != null) {
-                                str = "Workers";
-                                temp = dataSnapshot.child(str).child(userName).getValue(Worker.class);
-                            } else if (dataSnapshot.child("Managers").child(userName).getValue() != null) {
-                                str = "Managers";
-                                temp = dataSnapshot.child(str).child(userName).getValue(Manager.class);
-                            } else if (dataSnapshot.child("Admins").child(userName).getValue() != null) {
-                                str = "Admins";
-                                temp = dataSnapshot.child(str).child(userName).getValue(Admin.class);
-                            }
-                            if (str.equals("")) {
-                                Toast.makeText(logScreen.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
-                            } else {
-                                //Person temp = dataSnapshot.child(str).child(userName).getValue()
-                                if (temp.getPassword().equals(passw)) {
-                                    Toast.makeText(logScreen.this, "Login Successful", Toast.LENGTH_LONG).show();
-                                    switch (str) {
-                                        case "Users":
-                                            vars.getInstance().setCurrPerson(dataSnapshot.child("Users").child(userName).getValue(User.class));
-                                            break;
-                                        case "Workers":
-                                            vars.getInstance().setCurrPerson(dataSnapshot.child("Workers").child(userName).getValue(Worker.class));
-                                            break;
-                                        case "Managers":
-                                            vars.getInstance().setCurrPerson(dataSnapshot.child("Managers").child(userName).getValue(Manager.class));
-                                            break;
-                                        case "Admins":
-                                            vars.getInstance().setCurrPerson(dataSnapshot.child("Admins").child(userName).getValue(Admin.class));
-                                            break;
-                                    }
-                                    startActivity(new Intent(logScreen.this, startApplication.class));
-                                } else {
-                                    Toast.makeText(logScreen.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
-                                }
-                            }
+                            Toast.makeText(logScreen.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                         }
                     }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(logScreen.this, "Database Error", Toast.LENGTH_LONG).show();
-                    }
-                });
-
+                }
 
             }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(logScreen.this, "Database Error", Toast.LENGTH_LONG).show();
+            }
         });
+
+
     }
 }

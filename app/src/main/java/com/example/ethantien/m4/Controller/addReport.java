@@ -80,21 +80,18 @@ public class addReport extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")) {
-                    Toast.makeText(addReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
-                } else {
-                    Double lat = Double.parseDouble(latitude.getText().toString());
-                    Double longi = Double.parseDouble(longitude.getText().toString());
-                    if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
-                        Toast.makeText(addReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
-                    } else {
-
-                        String waterType = choseType.getSelectedItem().toString();
-                        String waterCondition = choseCondition.getSelectedItem().toString();
-                        addWaterReport(lat, longi, waterType, waterCondition);
-
+                try {
+                    if (validInput(latitude.getText().toString(), longitude.getText().toString())) {
+                        addWaterReport(Double.parseDouble(latitude.getText().toString()),
+                                Double.parseDouble(longitude.getText().toString()),
+                                choseType.getSelectedItem().toString(),
+                                choseCondition.getSelectedItem().toString());
+                        Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(addReport.this, WaterReports.class));
                         finish();
                     }
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(addReport.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -114,7 +111,27 @@ public class addReport extends AppCompatActivity {
     }
 
     /**
-     * this method pulls the data that come from the textboxes that are on the screen, and then
+     * returns true whether or not the values entered are valid
+     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
+     * @param lat the latitude
+     * @param longi the longitude
+     * @return true of the values are valid, throws exception otherwise
+     */
+    private boolean validInput(String lat, String longi) {
+        if (lat.equals("") || longi.equals("")) {
+            throw new IllegalArgumentException("Please enter all information");
+        } else {
+            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
+                    || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
+                throw new IllegalArgumentException("Please enter valid coordinates");
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * creates a new water report and then
      * pushes the new water report to the Firebase Database if it is valid.
      * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
      * @param lat the latitude
@@ -141,8 +158,6 @@ public class addReport extends AppCompatActivity {
                 childUpdates.put("" + temp.getReportNumber(), temp);
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterReports");
                 mDatabase.updateChildren(childUpdates);
-                Toast.makeText(addReport.this, "New report created.", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(addReport.this, WaterReports.class));
 
             }
 

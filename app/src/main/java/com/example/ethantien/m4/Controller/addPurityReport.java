@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 public class addPurityReport extends AppCompatActivity {
     private EditText latitude;
     private EditText longitude;
@@ -37,6 +38,7 @@ public class addPurityReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_purity_report);
+
         Button cancel = (Button) findViewById(R.id.cancel);
         Button add = (Button) findViewById(R.id.submitButton);
 
@@ -66,22 +68,19 @@ public class addPurityReport extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (latitude.getText().toString().equals("") || longitude.getText().toString().equals("")
-                        || virus.getText().toString().equals("") || contaminant.getText().toString().equals("")) {
-                    Toast.makeText(addPurityReport.this, "Please enter all information.", Toast.LENGTH_LONG).show();
-                } else {
-                    Double lat = Double.parseDouble(latitude.getText().toString());
-                    Double longi = Double.parseDouble(longitude.getText().toString());
-                    Double virusppm = Double.parseDouble(virus.getText().toString());
-                    Double contaminantppm = Double.parseDouble(contaminant.getText().toString());
-                    String waterCondition = choseCondition.getSelectedItem().toString();
-                    if (lat > 90 || lat < -90 || longi > 180 || longi < -180) {
-                        Toast.makeText(addPurityReport.this, "Please enter valid coordinates.", Toast.LENGTH_LONG).show();
-                    } else {
-                        addReport(lat, longi, waterCondition, virusppm, contaminantppm);
-
+                try {
+                    if (validInput(latitude.getText().toString(), longitude.getText().toString(),
+                            virus.getText().toString(), contaminant.getText().toString())) {
+                        addReport(Double.parseDouble(latitude.getText().toString()),
+                                Double.parseDouble(longitude.getText().toString()),
+                                choseCondition.getSelectedItem().toString(),
+                                Double.parseDouble(virus.getText().toString()),
+                                Double.parseDouble(contaminant.getText().toString()));
+                        startActivity(new Intent(addPurityReport.this, PurityReports.class));
                         finish();
                     }
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(addPurityReport.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -100,9 +99,30 @@ public class addPurityReport extends AppCompatActivity {
     }
 
     /**
+     * Returns true if the values entered are valid.
+     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid.
+     * @param lat latitude
+     * @param longi longitude
+     * @param virus virusPPM of the water
+     * @param contaminant contaminantPPM of the water.
+     * @return true if the values are valid, throws exception otherwise
+     */
+    private boolean validInput(String lat, String longi,  String virus, String contaminant) {
+        if (lat.equals("") || longi.equals("") || virus.equals("") || contaminant.equals("")) {
+            throw new IllegalArgumentException("Please enter all information");
+        } else {
+            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
+                    || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
+                throw new IllegalArgumentException("Please enter valid coordinates");
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
      * this method pulls the data that come from the textboxes that are on the screen, and then
      * pushes the new purity report to the Firebase Database if it is valid.
-     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
      * @param lat the latitutde
      * @param longi the longitude
      * @param condition the condition of the water
@@ -130,7 +150,6 @@ public class addPurityReport extends AppCompatActivity {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("WaterPurityReports");
                 mDatabase.updateChildren(childUpdates);
                 Toast.makeText(addPurityReport.this, "New Purity Report created.", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(addPurityReport.this, PurityReports.class));
             }
 
             @Override

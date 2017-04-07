@@ -87,7 +87,6 @@ public class ViewingProfile extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userName = cur.getID();
                             String str = "";
-                            System.out.println(userName);
                             if (dataSnapshot.child("Users").child(userName).getValue() != null) {
                                 str = "Users";
                             } else if (dataSnapshot.child("Workers").child(userName).getValue() != null) {
@@ -99,7 +98,6 @@ public class ViewingProfile extends AppCompatActivity {
                             }
                             Map<String, Object> childUpdates = new HashMap<>();
                             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                            System.out.println("/" + str + "/" + userName);
                             childUpdates.put("/" + str + "/" + userName, cur);
                             mDatabase.updateChildren(childUpdates);
                             Toast.makeText(ViewingProfile.this, "Information saved successfully.", Toast.LENGTH_LONG).show();

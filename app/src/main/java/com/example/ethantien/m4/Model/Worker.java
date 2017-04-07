@@ -3,7 +3,7 @@ package com.example.ethantien.m4.model;
 /**
  * Created by ethantien on 2/21/17.
  *
- * represents an Worker account type
+ * represents a Worker account type
  */
 public class Worker extends User {
 
