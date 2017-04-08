@@ -68,7 +68,7 @@ public class ViewGraph extends AppCompatActivity {
                     }
                 }
 
-                DataPoint[] pts = getPoints(elements);
+                DataPoint[] pts = vars.getPoints(elements);
 
                 GraphView graph = (GraphView) findViewById(R.id.graph);
                 LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pts);
@@ -116,21 +116,12 @@ public class ViewGraph extends AppCompatActivity {
 
     }
 
-    private DataPoint[] getPoints(SparseArray<Node> arr) {
-        DataPoint[] pts = new DataPoint[arr.size()];
-        int counter = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            int num = arr.keyAt(i);
-            pts[counter++] = new DataPoint(num, arr.get(num).getValue() / arr.get(num).getCount());
-        }
-        return pts;
-    }
 
     /**
      * temp class just to be able to keep track of a month's value and the number of times it
      * shows up
      */
-    private class Node {
+    public class Node {
         private Double value;
         private int count;
 
@@ -141,7 +132,7 @@ public class ViewGraph extends AppCompatActivity {
         public Double getValue() {
             return value;
         }
-        int getCount() {
+        public int getCount() {
             return count;
         }
         void addValue(Double num) {

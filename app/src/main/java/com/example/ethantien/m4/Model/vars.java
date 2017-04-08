@@ -1,5 +1,10 @@
 package com.example.ethantien.m4.model;
 
+import android.util.SparseArray;
+
+import com.example.ethantien.m4.controller.ViewGraph;
+import com.jjoe64.graphview.series.DataPoint;
+
 /**
  * Created by ethantien on 2/20/17.
  *
@@ -74,6 +79,47 @@ public class vars {
 
     public void setCurrPerson(Person p) {
         currPerson = p;
+    }
+
+    /**
+     * returns true whether or not the input is valid
+     * valid = no empty parameters, longitude/ latitude are valid, year is valid
+     * @param lat latitude
+     * @param longi longitude
+     * @param year year
+     * @param virus virusPPM
+     * @param contaminant contaminant PPM
+     * @return true of valid is input, throws exception otherwise
+     */
+    public static boolean validInput(String lat, String longi, String year, Boolean virus, Boolean contaminant) {
+        if (lat.equals("") || longi.equals("") || year.equals("") || (virus == contaminant)) {
+            throw new IllegalArgumentException("Please enter all information");
+        } else {
+            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
+                    || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
+                throw new IllegalArgumentException("Please enter valid coordinates");
+            } else if (year.length() != 4) {
+                throw new IllegalArgumentException("Please enter a valid year");
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /**
+     * helper method for the ViewGraph class that returns a dataset of coordinates to be graphed
+     * on a graph. Numbers in the same month will be averaged
+     * @param arr SparseArray of months and Nodes to be plotted.
+     * @return a DataPoint array of all the points after calculations
+     */
+    public static DataPoint[] getPoints(SparseArray<ViewGraph.Node> arr) {
+        DataPoint[] pts = new DataPoint[arr.size()];
+        int counter = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            int num = arr.keyAt(i);
+            pts[counter++] = new DataPoint(num, arr.get(num).getValue() / arr.get(num).getCount());
+        }
+        return pts;
     }
 
 

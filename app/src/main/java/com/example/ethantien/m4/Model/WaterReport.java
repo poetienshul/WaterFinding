@@ -23,4 +23,24 @@ public class WaterReport extends Report{
     public String getType() {
         return type;
     }
+
+    /**
+     * returns true whether or not the values entered are valid
+     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
+     * @param lat the latitude
+     * @param longi the longitude
+     * @return true of the values are valid, throws exception otherwise
+     */
+    public static boolean validInput(String lat, String longi) {
+        if (lat.equals("") || longi.equals("")) {
+            throw new IllegalArgumentException("Please enter all information");
+        } else {
+            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
+                    || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
+                throw new IllegalArgumentException("Please enter valid coordinates");
+            } else {
+                return true;
+            }
+        }
+    }
 }

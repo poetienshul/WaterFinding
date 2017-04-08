@@ -56,7 +56,7 @@ public class ViewGraphSettings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    if (validInput(lat.getText().toString(), longi.getText().toString(),
+                    if (vars.validInput(lat.getText().toString(), longi.getText().toString(),
                             year.getText().toString(), virus.isChecked(), contaminant.isChecked())) {
                         vars.getInstance().setGraphLat(Double.parseDouble(lat.getText().toString()));
                         vars.getInstance().setGraphLong(Double.parseDouble(longi.getText().toString()));
@@ -74,30 +74,7 @@ public class ViewGraphSettings extends AppCompatActivity {
 
     }
 
-    /**
-     * returns true whether or not the input is valid
-     * valid = no empty parameters, longitude/ latitude are valid, year is valid
-     * @param lat latitude
-     * @param longi longitude
-     * @param year year
-     * @param virus virusPPM
-     * @param contaminant contaminant PPM
-     * @return true of valid is input, throws exception otherwise
-     */
-    private boolean validInput(String lat, String longi, String year, Boolean virus, Boolean contaminant) {
-        if (lat.equals("") || longi.equals("") || year.equals("") || (virus == contaminant)) {
-            throw new IllegalArgumentException("Please enter all information");
-        } else {
-            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
-                || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
-                throw new IllegalArgumentException("Please enter valid coordinates");
-            } else if (year.length() != 4) {
-                throw new IllegalArgumentException("Please enter a valid year");
-            } else {
-                return true;
-            }
-        }
-    }
+
 
     public void onVirusButtonClicked(View view) {
         virus = (RadioButton)view;

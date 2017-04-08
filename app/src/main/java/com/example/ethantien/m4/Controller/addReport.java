@@ -81,7 +81,7 @@ public class addReport extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    if (validInput(latitude.getText().toString(), longitude.getText().toString())) {
+                    if (WaterReport.validInput(latitude.getText().toString(), longitude.getText().toString())) {
                         addWaterReport(Double.parseDouble(latitude.getText().toString()),
                                 Double.parseDouble(longitude.getText().toString()),
                                 choseType.getSelectedItem().toString(),
@@ -110,25 +110,7 @@ public class addReport extends AppCompatActivity {
 
     }
 
-    /**
-     * returns true whether or not the values entered are valid
-     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid
-     * @param lat the latitude
-     * @param longi the longitude
-     * @return true of the values are valid, throws exception otherwise
-     */
-    private boolean validInput(String lat, String longi) {
-        if (lat.equals("") || longi.equals("")) {
-            throw new IllegalArgumentException("Please enter all information");
-        } else {
-            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
-                    || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
-                throw new IllegalArgumentException("Please enter valid coordinates");
-            } else {
-                return true;
-            }
-        }
-    }
+
 
     /**
      * creates a new water report and then

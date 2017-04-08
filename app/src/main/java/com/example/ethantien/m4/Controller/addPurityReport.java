@@ -69,7 +69,7 @@ public class addPurityReport extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    if (validInput(latitude.getText().toString(), longitude.getText().toString(),
+                    if (WaterPurityReport.validInput(latitude.getText().toString(), longitude.getText().toString(),
                             virus.getText().toString(), contaminant.getText().toString())) {
                         addReport(Double.parseDouble(latitude.getText().toString()),
                                 Double.parseDouble(longitude.getText().toString()),
@@ -98,27 +98,7 @@ public class addPurityReport extends AppCompatActivity {
         });
     }
 
-    /**
-     * Returns true if the values entered are valid.
-     * Valid = all textboxes are filled in, and the latitutde / longitutde values are valid.
-     * @param lat latitude
-     * @param longi longitude
-     * @param virus virusPPM of the water
-     * @param contaminant contaminantPPM of the water.
-     * @return true if the values are valid, throws exception otherwise
-     */
-    private boolean validInput(String lat, String longi,  String virus, String contaminant) {
-        if (lat.equals("") || longi.equals("") || virus.equals("") || contaminant.equals("")) {
-            throw new IllegalArgumentException("Please enter all information");
-        } else {
-            if (Double.parseDouble(lat) > 90 || Double.parseDouble(lat) < -90
-                    || Double.parseDouble(longi) > 180 || Double.parseDouble(longi) < -180) {
-                throw new IllegalArgumentException("Please enter valid coordinates");
-            } else {
-                return true;
-            }
-        }
-    }
+
 
     /**
      * this method pulls the data that come from the textboxes that are on the screen, and then
