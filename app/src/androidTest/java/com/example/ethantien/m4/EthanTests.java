@@ -21,10 +21,6 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class EthanTests {
 
-    @Before
-    public void setUp() {
-    }
-
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
