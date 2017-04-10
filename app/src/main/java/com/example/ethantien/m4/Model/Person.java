@@ -35,6 +35,51 @@ public abstract class Person {
     }
 
     /**
+     * returns true whether or not the input is valid
+     * valid = no empty parameters, length of id and password is longer than 5,
+     *          password contains at least one uppercase, lowercase, and digit
+     * @param id the id of the username
+     * @param password the password of the user
+     * @param name the user's full name
+     * @return true whether or not the credentials are valid
+     */
+    public static boolean validInput(String id, String password, String name) {
+        if (id.trim().equals("") || password.trim().equals("") || name.trim().equals("")) {
+            throw new IllegalArgumentException("Please enter all fields");
+        }
+        if (id.length() < 6) {
+            throw new IllegalArgumentException("ID cannot be less than six characters");
+        }
+        if (password.length() < 6) {
+            throw new IllegalArgumentException("Password cannot be less than six characters");
+        }
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasDigit = false;
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLower = true;
+            } else if (Character.isUpperCase(c)) {
+                hasUpper = true;
+            }
+        }
+
+        if (!hasUpper) {
+            throw new IllegalArgumentException("Password must contain an upper case letter");
+        }
+        if (!hasLower) {
+            throw new IllegalArgumentException("Password must contain a lower case letter");
+        }
+        if (!hasDigit) {
+            throw new IllegalArgumentException("Password must contain a digit");
+        }
+        return true;
+    }
+
+    /**
      * getters and setters for all the attributes (besides those that should not be changed)
      */
 

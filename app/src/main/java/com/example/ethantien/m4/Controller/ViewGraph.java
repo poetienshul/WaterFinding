@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ethantien.m4.model.Node;
 import com.example.ethantien.m4.model.vars;
 import com.example.ethantien.m4.R;
 import com.google.firebase.database.DataSnapshot;
@@ -117,33 +118,7 @@ public class ViewGraph extends AppCompatActivity {
     }
 
 
-    /**
-     * temp class just to be able to keep track of a month's value and the number of times it
-     * shows up
-     */
-    public class Node {
-        private Double value;
-        private int count;
 
-        Node(Double val) {
-            value = val;
-            count = 1;
-        }
-        public Double getValue() {
-            return value;
-        }
-        public int getCount() {
-            return count;
-        }
-        void addValue(Double num) {
-            value += num;
-        }
-        void incrementCount() {
-            count++;
-        }
-        public String toString() {
-            return "Node: {Value:" + value + ", Count:" + count + "}";
-        }
-    }
+
 
 }

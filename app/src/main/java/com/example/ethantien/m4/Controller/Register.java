@@ -82,16 +82,19 @@ public class Register extends AppCompatActivity {
                 String password = pass.getText().toString();
                 String fullName = name.getText().toString();
 
-                if (username.equals("") || password.equals("") || fullName.equals("")) {
-                    Toast.makeText(Register.this, "Please fill out all blanks.", Toast.LENGTH_LONG).show();
-                } else {
-                    /**
-                     * Creates a new Subclass of 'Person' based on what they selected.
-                     */
-                    String choice = choseUserType.getSelectedItem().toString();
+                try {
+                    if (Person.validInput(username, password, fullName)) {
+                        /**
+                         * Creates a new Subclass of 'Person' based on what they selected.
+                         */
+                        String choice = choseUserType.getSelectedItem().toString();
 
-                    addNewUser(username, password, fullName, choice);
+                        addNewUser(username, password, fullName, choice);
+                    }
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+
 
 
             }

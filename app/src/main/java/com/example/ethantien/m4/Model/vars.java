@@ -2,7 +2,6 @@ package com.example.ethantien.m4.model;
 
 import android.util.SparseArray;
 
-import com.example.ethantien.m4.controller.ViewGraph;
 import com.jjoe64.graphview.series.DataPoint;
 
 /**
@@ -107,12 +106,12 @@ public class vars {
     }
 
     /**
-     * helper method for the ViewGraph class that returns a dataset of coordinates to be graphed
+     * helper method for the ViewGraph class that returns a data set of coordinates to be graphed
      * on a graph. Numbers in the same month will be averaged
      * @param arr SparseArray of months and Nodes to be plotted.
      * @return a DataPoint array of all the points after calculations
      */
-    public static DataPoint[] getPoints(SparseArray<ViewGraph.Node> arr) {
+    public static DataPoint[] getPoints(SparseArray<Node> arr) {
         DataPoint[] pts = new DataPoint[arr.size()];
         int counter = 0;
         for (int i = 0; i < arr.size(); i++) {
