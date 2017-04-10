@@ -51,17 +51,17 @@ public class EthanTests {
 
     @Test (expected = IllegalArgumentException.class)
     public void testYearInvalid() {
-        vars.validInput("12.3", "12.1", "", true, false);
+        vars.validInput("12.3", "12.1", "12", true, false);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testLatitutdeTooLow() {
-        vars.validInput("12.3", "12.1", "", true, false);
+        vars.validInput("-112.3", "12.1", "", true, false);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testLatitutdeTooHigh() {
-        vars.validInput("-91", "12.1", "", true, false);
+        vars.validInput("91", "12.1", "", true, false);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -81,6 +81,6 @@ public class EthanTests {
 
     @Test (expected = IllegalArgumentException.class)
     public void testNotNumbers() {
-        assertTrue(vars.validInput("Abc", "Abc", "Abc", true, false));
+        vars.validInput("Abc", "Abc", "Abc", true, false);
     }
 }
