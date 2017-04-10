@@ -1,7 +1,5 @@
 package com.example.ethantien.m4;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import com.example.ethantien.m4.model.WaterPurityReport;
 
 import org.junit.Test;
