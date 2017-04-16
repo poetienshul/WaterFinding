@@ -17,6 +17,10 @@ import static org.junit.Assert.*;
 public class cFengTests {
     private SparseArray<Node> elements;
 
+    /**
+     * put things in elements to pass into getPoints
+     * @throws Exception just in case
+     */
     @Before
     public void setUp() throws Exception {
         elements = new SparseArray<>();
@@ -54,7 +58,10 @@ public class cFengTests {
 
     }
 
-
+    /**
+     * Just makes sures everything is added correctly
+     * @throws Exception just in case
+     */
     @Test
     public void resultTest() throws Exception {
         //SparseArray<ViewGraph.Node> elements = setUp();

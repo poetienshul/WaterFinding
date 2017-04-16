@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class EthanTests {
 
-
     @Test (expected = IllegalArgumentException.class)
     public void testAllEmptyText() {
         vars.validInput("", "", "", true, false);
