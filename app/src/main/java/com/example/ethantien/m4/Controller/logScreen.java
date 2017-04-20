@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 public class logScreen extends AppCompatActivity {
     private EditText username;
     private EditText password;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,12 @@ public class logScreen extends AppCompatActivity {
         enterKeys.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(username.getText().toString(), password.getText().toString());
+                if (counter < 3) {
+                    login(username.getText().toString(), password.getText().toString());
+                } else {
+                    Toast.makeText(logScreen.this, "Too many login attempts!", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -96,6 +102,7 @@ public class logScreen extends AppCompatActivity {
                         temp = dataSnapshot.child(str).child(user).getValue(Admin.class);
                     }
                     if (str.equals("")) {
+                        counter++;
                         Toast.makeText(logScreen.this, "Invalid username or password.", Toast.LENGTH_LONG).show();
                     } else {
                         if (temp.getPassword().equals(pass)) {
@@ -118,6 +125,7 @@ public class logScreen extends AppCompatActivity {
                             startActivity(new Intent(logScreen.this, startApplication.class));
                             finish();
                         } else {
+                            counter++;
                             Toast.makeText(logScreen.this, "Invalid username or password", Toast.LENGTH_LONG).show();
                         }
                     }
